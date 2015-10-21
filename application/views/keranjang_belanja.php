@@ -72,8 +72,8 @@
           {
             echo $info;
           }
-	  			echo anchor(base_url(), 'Lanjutkan Belanja', 'class="btn btn-primary"');
-	  			echo anchor('#', 'Konfirmasi Pemesanan', 'class="btn btn-success"');
+	  			echo anchor(site_url(), 'Lanjutkan Belanja', 'class="btn btn-primary"');
+	  			echo anchor(site_url().'/order', 'Konfirmasi Pemesanan', 'class="btn btn-success"');
           echo form_submit('update','Update Keranjang','class="btn btn-primary"');
 	  			form_close();
 	  			endif;
