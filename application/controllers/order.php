@@ -11,7 +11,12 @@ class Order extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('tampilan_home');
+		$this->load->view('tampilan_order');
+	}
+
+	public function register()
+	{
+		
 	}
 
 }
