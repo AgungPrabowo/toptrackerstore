@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2015 at 04:20 AM
+-- Generation Time: Oct 22, 2015 at 04:22 AM
 -- Server version: 5.6.25
 -- PHP Version: 5.5.27
 
@@ -70,17 +70,43 @@ CREATE TABLE IF NOT EXISTS `komentar` (
   `id_produk` int(5) NOT NULL,
   `nama` char(25) NOT NULL,
   `email` char(25) NOT NULL,
-  `isi_komentar` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `isi_komentar` text NOT NULL,
+  `tanggal` int(30) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `komentar`
 --
 
-INSERT INTO `komentar` (`id_komentar`, `id_produk`, `nama`, `email`, `isi_komentar`) VALUES
-(4, 9, 'agung', 'agungprabowo11069@yahoo.c', ''),
-(5, 9, 'aaa', 'ekolontong99@gmail.com', ''),
-(6, 9, 'coba', 'toptracker05@yahoo.com', 'coba komentar');
+INSERT INTO `komentar` (`id_komentar`, `id_produk`, `nama`, `email`, `isi_komentar`, `tanggal`) VALUES
+(4, 9, 'agung', 'agungprabowo11069@yahoo.c', '', 0),
+(5, 9, 'aaa', 'ekolontong99@gmail.com', '', 0),
+(6, 9, 'coba', 'toptracker05@yahoo.com', 'coba komentar', 0),
+(7, 9, 'aha', 'p@y.com', '0', 0),
+(8, 9, 'pa', 'toptracker05@yahoo.com', '0', 0),
+(9, 9, 'aaa', 'agungprabowo112@gmail.com', 'coba lgi komentar', 1445251796),
+(10, 9, 'ajax', 'ajax@gam.com', 'ajax', 1445253852),
+(11, 9, 'lala', 'ajaxlagi@a.com', 'coba ajax', 1445253929),
+(12, 9, 'lala1', 'ajaxlagi@a.com', 'coba ajax1', 1445254496),
+(13, 9, 'lala1', 'ajaxlagi@a.com', 'coba ajax1', 1445260514),
+(14, 9, 'lala1', 'ajaxlagi@a.com', 'coba ajax2', 1445260694),
+(15, 9, 'lala1', 'ajaxlagi@a.com', 'coba ajax3', 1445261438),
+(16, 0, '0', '0', '0', 1445261796),
+(17, 9, 'agung', 'toptracker05@yahoo.com', 'ayax', 1445264030),
+(18, 9, 'sdfadf', 'afardefa@dsfs.com', 'edrasdr', 1445264983),
+(19, 9, 'popoop', 'alda@yah.com', 'wolo', 1445265013),
+(20, 9, 'awak', 'agungprabowo110696@yahoo.', 'wa', 1445267565),
+(21, 8, 'komentar', 'toptracker05@yahoo.com', 'ajax', 1445267611),
+(22, 8, 'dfad', 'nldfna@y.com', 'nfjandf', 1445267653),
+(23, 8, 'coba lagi', 'toptracker05@yahoo.com', 'coba lagi', 1445267689),
+(24, 8, 'ad', 'ekolontong99@gmail.com', 'cobadfbkda', 1445267731),
+(25, 8, 'coba nama', 'agungprabowo110696@yahoo.', 'aa', 1445268126),
+(26, 8, 'ajax', 'agungprabowo110696@yahoo.', 'jquery', 1445269549),
+(27, 8, 'nama', 'ekolontong99@gmail.com', 'komentar', 1445269608),
+(28, 8, 'semangat', 'agungprabowo112@gmail.com', 'wawa', 1445270557),
+(29, 8, 'sdfhuagdfoa8879', 'toptracker05@yahoo.com', 'dfcsdfsda', 1445270722),
+(30, 0, '0', '0', '0', 1445288907),
+(31, 6, 'agung', 'agungprabowo112@gmail.com', 'coba komentar', 1445289123);
 
 -- --------------------------------------------------------
 
@@ -159,7 +185,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id_komentar` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `produk`
 --
