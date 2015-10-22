@@ -5,9 +5,11 @@
         Data Diri Anda
       </a>
     </h4>
-  </div>
+  </div><!-- End class=panel-heading -->
+
   <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
     <div class="panel-body">
+
       <div class="col-sm-6 col-md-6">
           <h1>Data Diri Anda</h1>
           <div class="form-group">
@@ -59,7 +61,8 @@
               <input type="password" class="form-control" placeholder="Ulangi Password" name="re-password" id="re-password" required>
             </div>
           </div>
-      </div>
+      </div><!-- End class=col-sm-6 col-md6 -->
+
       <div class="col-sm-6 col-md-6">
         <h1>Alamat Anda</h1>
         <div class="form-group">
@@ -94,9 +97,10 @@
             <select class="form-control">
               <option>---PILIH---</option>
             </select>
+          </div>
         </div>
-      </div>
-      </div>
-  </div>                  
-</div>
-</div>
+      </div><!-- End class=col-sm-6 col-md6 -->
+
+    </div><!-- End class=panel-body -->
+  </div><!-- End class=panel panel-collapse -->
+</div><!-- End class=panel panel-default -->
