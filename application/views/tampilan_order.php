@@ -2,15 +2,13 @@
 <?=$this->load->view('tampilan_menu');?>
   	<div class="container">
   		<div class="row">
-  			<div class="col-md-12" style="background-color:green;">
+  			<div class="col-sm-12 col-md-12" style="background-color:green;">
           <div class="row">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <form>
               <?php 
                 $this->load->view('form_register_login');
                 $this->load->view('form_datadiri');
               ?>
-            </form>
             </div>     
           </div>
         </div>
