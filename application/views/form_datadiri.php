@@ -9,7 +9,6 @@
   <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
     <div class="panel-body">
       <div class="col-sm-6 col-md-6">
-        <form>
           <h1>Data Diri Anda</h1>
           <div class="form-group">
             <label class="control-label">Nama Depan</label>
@@ -98,7 +97,6 @@
         </div>
       </div>
       </div>
-    </form>
   </div>                  
 </div>
 </div>
