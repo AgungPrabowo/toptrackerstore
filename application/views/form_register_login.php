@@ -8,7 +8,23 @@
           </div>
           <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-              Content Login Atau Register
+              <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="control-label">Username</label>
+                  <div>
+                    <input type="text" class="form-control" placeholder="Username" name="username" id="username" requiured>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Password</label>
+                  <div>
+                    <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6">
+
+              </div>
             </div>
           </div>
         </div>
