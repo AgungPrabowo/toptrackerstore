@@ -1,9 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading" role="tab" id="headingTwo">
     <h4 class="panel-title">
-      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Data Diri Anda
-      </a>
+        <strong id="data-diri">Step 2 : Data Diri dan Alamat Anda</strong>
     </h4>
   </div><!-- End class=panel-heading -->
 
@@ -100,6 +98,13 @@
           </div>
         </div>
       </div><!-- End class=col-sm-6 col-md6 -->
+
+      <div class="col-sm-12 col-md-12">
+            <div align="right">
+              <a class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Continue</a>
+            </div>
+      </div>
 
     </div><!-- End class=panel-body -->
   </div><!-- End class=panel panel-collapse -->
