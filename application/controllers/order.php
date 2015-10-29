@@ -45,7 +45,6 @@ class Order extends CI_Controller {
 		$data['password']		= md5($this->input->post('password'));
 
 		$this->model_customer->getinsert($data);
-		redirect(site_url().'/order','refresh');
 
 	}
 
