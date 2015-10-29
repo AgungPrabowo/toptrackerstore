@@ -10,9 +10,7 @@
 // 			url 		: '<?=site_url();?>/blog/insert_komentar',
 // 			data		: string,
 // 			success		: function(){
-// 				$("#isi").val('');
-// 				$("#email").val('');
-// 				$("#nama").val('');
+// 				$("p").load("comment.php");
 //       		}
 // 		});
 // 	});
@@ -20,7 +18,7 @@
 </script>
 <div class="row">
 	<div class="col-md-12" style="background-color:red;">	
-		<p id="loading"></p>
+		<p>
 	<?php
 	foreach($komentar->result() as $row)
 	{
@@ -30,7 +28,8 @@
 	}
 
 	?>	
-		<form class="form-horizontal" id="form-komentar" name="form-komentar" action="<?=site_url();?>/blog/insert_komentar" method="POST">
+</p>
+		<form class="form-horizontal" id="form-komentar" name="form-komentar" method="POST" action="<?=site_url();?>/blog/insert_komentar">
 			<div class="form-group">
 				<div class="col-sm-12">
 					<textarea class="form-control" name="isi" id="isi" placeholder="Tulis Komentar Anda disini" rows="3"><?=$isi;?></textarea>
@@ -51,7 +50,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
-							<button type="submit" name="simpan" class="btn btn-default" id="simpan">Post Komentar</button>
+							<button type="submit" class="btn btn-default" id="simpan">Post Komentar</button>
 						</div>
 					</div>
 				</div>
