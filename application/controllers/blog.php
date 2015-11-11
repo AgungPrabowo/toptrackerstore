@@ -28,7 +28,6 @@ class Blog extends CI_Controller {
 	public function detail($key)
 	{
 		$this->load->model('model_produk');
-		$this->load->model('model_komentar');
 		$query  				= $this->model_produk->getdata($key);
 		$data['id_produk'] 		= $query->id_produk;
 		$data['judul']			= $query->judul;
@@ -39,8 +38,20 @@ class Blog extends CI_Controller {
 		$data['email']			= '';
 		$data['nama']			= '';
 		$data['isi']			= '';
-		$data['komentar']		= $this->model_komentar->getdata($key);
+
 		$this->load->view('tampilan_detail', $data);
+	}
+
+	public function ambil_komentar($key)
+	{
+		$this->load->model('model_komentar');
+		$komentar = $this->model_komentar->getdata($key);
+		foreach($komentar->result() as $row)
+		{
+			echo "<p id='komentar'>".$row->nama."<br>";
+			echo generate_tanggal(gmdate('d/m/Y-H:i',$row->tanggal))." WIB<br>";
+			echo $row->isi_komentar.'</p>';
+		}
 	}
 
 	public function insert_komentar()
