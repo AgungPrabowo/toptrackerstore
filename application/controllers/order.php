@@ -13,6 +13,9 @@ class Order extends CI_Controller {
 
 	public function index()
 	{
+		global $key;
+		$data['city']			= $this->model_wilayah->getdata($key);
+		$data['provinces'] 		= $this->db->get('provinces');
 		$data['nama_depan']		= '';
 		$data['nama_belakang']	= '';
 		$data['email']			= '';
@@ -25,7 +28,14 @@ class Order extends CI_Controller {
 		$data['kota']			= '';
 		$data['username']		= '';
 		$data['password']		= '';
+
 		$this->load->view('tampilan_order', $data);
+	}
+
+	public function getkota($key)
+	{
+		$key=$key;
+
 	}
 
 	public function simpan()
