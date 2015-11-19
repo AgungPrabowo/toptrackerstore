@@ -8,4 +8,4 @@
     <link href="<?php echo base_url();?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="<?=base_url();?>assets/js/jquery-2.0.3.min.js"></script>
   </head>
-  <body>
+  <body background="<?=base_url();?>assets/img/stripe.png">
