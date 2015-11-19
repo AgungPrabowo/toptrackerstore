@@ -42,8 +42,19 @@
 	            <li><a href="#">Action</a></li>
 	            <li><a href="#">Another action</a></li>
 	            <li><a href="#">Something else here</a></li>
+	            <?php
+	            	$sess = $this->session->userdata('username');
+	            	if(!empty($sess))
+	            	{
+	            ?>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
+	            <li><a href="<?=site_url();?>/blog/logout">Logout</a></li>
+	            <script>
+	            	$(document).ready(function(){
+	            		$('#login').attr('style','display:none');
+	            	});
+	            </script>
+	            <?php }?>
 	          </ul>
 	        </li>
 	      </ul>
