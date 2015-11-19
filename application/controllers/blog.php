@@ -128,6 +128,21 @@ class Blog extends CI_Controller {
 		redirect('blog/cart');
 	}
 
+	public function cek_login()
+	{
+		$user 	= $this->input->post('username');
+		$pass	= $this->input->post('password');
+
+		$this->load->model('model_customer');
+		$this->model_customer->cek_login($user,$pass);
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect(site_url());
+	}
+
 
 }
 
