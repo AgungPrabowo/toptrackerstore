@@ -11,11 +11,11 @@
 					<h1><strong><?=$judul;?></strong></h1>
 					<h5><?="Harga: Rp.".number_format($harga,0, '', '.');?></h5><hr style="border:dotted;border-width:1px;border-color:#D1D1D1;">
 					<p><?=$isi_produk?></p><hr style="border:dotted;border-width:1px;border-color:#D1D1D1">
-					<p><a href="<?php echo base_url().'index.php/blog/add_to_cart/'.$id_produk;?>" class="btn btn-primary" role="button">Beli</a></p>
+					<p><a href="<?php echo site_url().'/blog/add_to_cart/'.$id_produk;?>" class="btn btn-primary" role="button">Beli</a></p>
 					</div>
 			</div>
 			<?php $this->load->view('komentar');?><!-- KOMENTAR -->
 		</div><!-- END CONTENT -->
 	</div>
-	<?php $this->load->view('footer');?><!-- FOOTER -->
 </div>
+<?php $this->load->view('footer');?><!-- FOOTER -->
