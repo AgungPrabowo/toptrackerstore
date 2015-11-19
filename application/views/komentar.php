@@ -3,6 +3,7 @@ $(document).ready(function(){
 
 	var url 	= '<?=site_url();?>/blog/ambil_komentar/<?=$id_produk;?>';
 
+	//menggunakan metode get untuk mengambil data komentar 
 	$.get(url).done(function(data){
 		$('#komentar').html(data);
 	});
@@ -16,6 +17,7 @@ $(document).ready(function(){
 		var email_komen	= $('#email').val();
 		var nama_komen	= $('#nama').val();
 
+		//menggunakan metode ajax untuk mengirim data komentar
 		$.ajax({
 			type   : 'POST',
 			url    : '<?=site_url();?>/blog/insert_komentar',
@@ -26,6 +28,7 @@ $(document).ready(function(){
 						email 		: email_komen,
 						nama 		: nama_komen
 					},
+				//jika sukses kosongkan form dan ambil data komentar dengan metode get
 				success	: function(){
 					$('#isi').val('');
 					$('#nama').val('');
