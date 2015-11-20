@@ -13,8 +13,6 @@ class Order extends CI_Controller {
 
 	public function index()
 	{
-		global $key;
-		$data['city']			= $this->model_wilayah->getdata($key);
 		$data['provinces'] 		= $this->db->get('provinces');
 		$data['nama_depan']		= '';
 		$data['nama_belakang']	= '';
@@ -34,7 +32,13 @@ class Order extends CI_Controller {
 
 	public function getkota($key)
 	{
-		$key=$key;
+		$city	= $this->model_wilayah->getdata($key);
+
+		echo "<select class='form-control' name='kota'>
+			  <option>---Pilih Kota---</option>";
+		foreach($city->result() as $kota):
+			echo "<option value=".$kota->id.">".$kota->name."</option>";
+		endforeach;
 
 	}
 
