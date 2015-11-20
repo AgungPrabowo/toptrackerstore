@@ -14,13 +14,27 @@ $(document).ready(function(){
     });
   });
 
+//ambil id provinsi dan kirim ke method getkota jika sukses ambil ambil data getkota
   $("select").change(function(){
     var key = $("select").val();
+    var url = '<?=site_url();?>/order/getkota/'+key;
+
 
     $.ajax({
-      type  : 'POST',
-      url   : '<?=site_url();?>/order/getkota/'+key,
+      type    : 'POST',
+      url     : '<?=site_url();?>/order/getkota/'+key,
+      success : function(){
+        $.get(url).done(function(data){
+          $("#kota").html(data);
+        });
+      }
     });
+  });
+
+//ambil data getkota dengan parameter 0
+  var url = '<?=site_url();?>/order/getkota/0';
+  $.get(url).done(function(data){
+    $("#kota").html(data);
   });
 
 });
@@ -128,17 +142,7 @@ $(document).ready(function(){
           </div>
           <div class="form-group">
             <label class="control-label">Kota</label>
-            <div>
-              <select class="form-control" name="kota" id="kota">
-                <option>---Pilih Kota---</option>
-                <?php
-                foreach($city->result() as $kota):
-                ?>
-                <option value="<?=$kota->id;?>"><?=$kota->name;?></option>
-                <?php
-                endforeach;
-                ?>
-              </select>
+            <div id="kota">
             </div>
           </div>
       </div><!-- End class=col-sm-6 col-md6 -->
