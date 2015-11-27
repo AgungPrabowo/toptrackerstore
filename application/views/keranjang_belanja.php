@@ -1,9 +1,9 @@
 <?=$this->load->view('tampilan_header');?>
   	<?=$this->load->view('tampilan_menu');?>
 
-  	<div class="container">
+  	<div class="container" style="background-color:white;">
   		<div class="row">
-  			<div class="col-md-8">
+  			<div class="col-md-12">
   					<?php
   					if($this->cart->contents() == NULL):
   						echo "Keranjang Belanja anda kosong, silakan berbelanja.<br>";
@@ -59,7 +59,7 @@
                               
                             <?php 
                             // cancle image.
-                            $path = "<img src='http://localhost/codeigniter_cart/images/cart_cross.jpg' width='25px' height='20px'>";
+                            $path = "<img src='http://localhost/toptrackerstore/assets/images/cart_cross.jpg' width='25px' height='20px'>";
                             echo anchor('blog/remove/' . $items['rowid'], $path); ?>
                             </td>
    	  				</tr>
@@ -72,17 +72,18 @@
           {
             echo $info;
           }
-	  			echo anchor(site_url(), 'Lanjutkan Belanja', 'class="btn btn-primary"');
+	  			echo "<center>".anchor(site_url(), 'Lanjutkan Belanja', 'class="btn btn-primary"');
 	  			echo anchor(site_url().'/order', 'Konfirmasi Pemesanan', 'class="btn btn-success"');
-          echo form_submit('update','Update Keranjang','class="btn btn-primary"');
+          echo form_submit('update','Update Keranjang','class="btn btn-primary"')."</center>";
 	  			form_close();
 	  			endif;
 	  			?>
 	  		</table>
 			</div>
-			<?=$this->load->view('side_bar');?>
   		</div>
   	</div>
+
+  <?php $this->load->view('footer');?><!-- FOOTER -->
 
     <script src="<?php echo base_url();?>assets/js/jquery-1.10.2.min.js"></script>
     <script src="<?php echo base_url();?>assets/bootstrap/js/bootstrap.min.js"></script>
