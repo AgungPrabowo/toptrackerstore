@@ -4,7 +4,7 @@
       <strong>Step 1 : Login Atau Register</strong>
     </h4>
   </div>
-  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+  <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
     <div class="panel-body">
 
       <div class="col-sm-6 col-md-6">
@@ -22,12 +22,12 @@
         <div class="form-group">
         <h2>Login</h2>
           <div>
-            <input type="text" class="form-control" placeholder="Username" name="username" id="username" requiured>
+            <input type="text" class="form-control" placeholder="Username" name="username" requiured>
           </div>
         </div>
         <div class="form-group">
           <div>
-            <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+            <input type="password" class="form-control" placeholder="Password" name="password" required>
           </div>
         </div>
         <div class="form-group">
