@@ -7,8 +7,8 @@ class Model_customer extends CI_Model {
 	{
 		$pwd 	= md5($pass);
 		$query 	= $this->db->where('username', $user)
-				 			->where('password', $pwd)
-				 			->get('customer');
+				 		   ->where('password', $pwd)
+				 		   ->get('customer');
 
 		if($query->num_rows() > 0)
 		{
