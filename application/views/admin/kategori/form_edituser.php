@@ -19,20 +19,20 @@ if(!empty($info))
 }
 ?>
 
-<?php echo validation_errors();?>
-<form class="form-horizontal" method="POST" action="<?php echo base_url();?>index.php/admin/kategori/simpan" onsubmit="return cekform();">
+<?=validation_errors();?>
+<form class="form-horizontal" method="POST" action="<?=base_url();?>index.php/admin/kategori/simpan" onsubmit="return cekform();">
 
 	<div class="control-group">
 		<div>
-			<input type="hidden" name="id_kategori" value="<?php echo $id_kategori;?>">
-			<input type="hidden" name="tipe" value="<?php echo $tipe;?>">
+			<input type="hidden" name="id_kategori" value="<?=$id_kategori;?>">
+			<input type="hidden" name="tipe" value="<?=$tipe;?>">
 		</div>
 	</div>
 
 	<div class="control-group">
 		<label class="control-label">Kategori</label>
 		<div>
-			<input type="text" name="kategori" id="kategori"  class="span5" value="<?php echo $kategori;?>">
+			<input type="text" name="kategori" id="kategori"  class="span5" value="<?=$kategori;?>">
 		</div>
 	</div>
 
