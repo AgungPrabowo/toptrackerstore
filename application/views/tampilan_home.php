@@ -1,29 +1,25 @@
-<?=$this->load->view('tampilan_header');?>
-  	<?=$this->load->view('tampilan_menu');?>
-  	<div class="container" style="background-color:white;">
-  		<div class="row">
-  			<div class="col-md-9">
-  				<?php 
-  				foreach($isi->result() as $row):?>
-  					<div class="col-sm-6 col-md-4">
-  						<div class="thumbnail">
-  							<img src="<?php echo base_url();?>assets/images/produk/<?php echo $row->gambar;?>">
-  							<div class="caption">
-  								<h3><?=$row->judul;?></h3>
-  								<!--p><?php
-  									// $isi = substr($row->isi,0,150);
-  									// $isi = substr($row->isi,0,strrpos($isi," "));
-  									// echo $isi;
-  									?></p-->
-  								<p><a href="<?php echo 'index.php/blog/add_to_cart/'.$row->id_produk;?>" class="btn btn-primary" role="button">Beli</a>
-  								   <a href="<?=site_url().'/blog/detail/'.$row->id_produk;?>" class="btn btn-default" role="button">Detail</a>
-  								</p>
-  							</div>
+<style type="text/css">
+.col-md-6:active{background: #2632FB;}
+</style>
+<?=$this->load->view('tampilan_header').br(3);?>
+<?=$this->load->view('tampilan_menu_atas');?>
+<?=$this->load->view('tampilan_menu_bawah');?>
+    <div class="container-fluid">
+      <div class="row">
+  				<?php foreach($data->result() as $row):?>
+           <a href="<?=site_url('/blog/detail/'.$row->id_produk);?>">
+            <div class="col-md-6">
+  						<img src="<?=base_url('assets/images/produk/'.$row->gambar);?>" width="120" height="120">
+              <div class="content">
+                <div class="judul"><br><?=$row->judul;?></div><br>
+              <font color="red">Harga reseller : Setelah diaudit member dapat melihat harga spesial</font><br>
+              Harga User&nbsp&nbsp&nbsp&nbsp&nbsp: <?="Rp ".number_format($row->harga,0,',','.');?>
+              </div>
+              <hr>
   						</div>
-  					</div>
+            </a>
 				<?php endforeach;?>
   			</div>
-  			<?=$this->load->view('side_bar');?>
   		</div>
     </div>
 

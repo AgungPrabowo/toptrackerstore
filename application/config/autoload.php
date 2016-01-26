@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database','cart','form_validation');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','form','generate_tanggal','generate_selisih_tanggal');
+$autoload['helper'] = array('url','form','generate_tanggal','generate_selisih_tanggal','captcha','html');
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('model_security');
+$autoload['model'] = array('model_security','model_pesanan','model_kategori','model_customer','model_login','model_order','model_produk','model_user','model_wilayah');
 
 
 /* End of file autoload.php */

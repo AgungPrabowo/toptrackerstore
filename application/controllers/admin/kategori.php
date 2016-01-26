@@ -32,8 +32,19 @@ class Kategori extends CI_Controller {
 		$this->model_security->getsecurity();
 		$isi['content']		= 'admin/kategori/form_editkategori';
 		$isi['judul']		= 'Kategori';
-		$isi['su_judul']	= 'Edit Kategori';
+		$isi['tipe']		= 'edit';
+		$isi['sub_judul']	= 'Edit Kategori';
 		$isi['link']		= base_url();'admin/kategori';
+
+		$key   = $this->uri->segment(4);
+		$query = $this->model_kategori->getdata($key);
+		foreach ($query->result() as $row) 
+		{
+			$isi['id_kategori']		= $row->id_kategori;
+			$isi['kategori']		= $row->kategori;
+		}
+
+		$this->load->view('admin/tampilan_home', $isi);
 	}
 
 	public function simpan()
@@ -63,7 +74,7 @@ class Kategori extends CI_Controller {
 		elseif($tipe == "edit")
 		{
 			$this->form_validation->set_rules('kategori','Kategori','required');
-			if($this->validation->run() == FALSE)
+			if($this->form_validation->run() == FALSE)
 			{
 				$this->session->set_fashdata('info','Kategori tidak boleh kosong');
 				redirect('admin/kategori/edit');

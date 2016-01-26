@@ -53,6 +53,25 @@ class Model_produk extends CI_Model {
 		return $hasil;
 	}
 
+	public function dataproduk()
+	{
+		return $this->db->order_by('id_produk','DESC')
+						->get('produk');
+	}
+
+	public function jumlah_data()
+	{
+		return $this->db->get('produk')
+				 		->num_rows();
+	}
+
+	public function ambil_gambar($gambar)
+	{
+		$query = $this->db->where('judul',$gambar)
+						  ->get('produk');
+		return $query->row();
+	}
+
 }
 
 /* End of file model_user.php */

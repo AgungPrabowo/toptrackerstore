@@ -1,5 +1,6 @@
 <?=$this->load->view('tampilan_header');?>
-<?=$this->load->view('tampilan_menu');?>
+<?=$this->load->view('tampilan_menu_atas');?>
+<?=$this->load->view('tampilan_menu_bawah');?>
   	<div class="container">
   		<div class="row">
   			<div class="col-sm-12 col-md-12">

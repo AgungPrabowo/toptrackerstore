@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 19, 2015 at 07:39 PM
+-- Generation Time: Jan 26, 2016 at 07:48 
 -- Server version: 5.6.25
 -- PHP Version: 5.5.27
 
@@ -28,17 +28,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `admin` (
   `no` int(5) NOT NULL,
+  `nama` char(25) NOT NULL,
+  `email` char(50) NOT NULL,
   `username` char(25) NOT NULL,
-  `password` char(225) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+  `password` char(225) NOT NULL,
+  `level` enum('Admin','Marketing') NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`no`, `username`, `password`) VALUES
-(12, 'w', '0cc175b9c0f1b6a831c399e269772661'),
-(19, 'q', 'f1290186a5d0b1ceab27f4e77c0c5d68');
+INSERT INTO `admin` (`no`, `nama`, `email`, `username`, `password`, `level`) VALUES
+(12, 'Aku', '', 'saya', '20c1a26a55039b30866c9d0aa51953ca', 'Marketing'),
+(19, 'Kamu', '', 'kamu', '48ec8af8df4bf4347d9b1de4ee7bb092', 'Marketing'),
+(20, 'Kita', '', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -48,31 +52,75 @@ INSERT INTO `admin` (`no`, `username`, `password`) VALUES
 
 CREATE TABLE IF NOT EXISTS `customer` (
   `id_customer` int(25) NOT NULL,
-  `nama_depan` char(25) NOT NULL,
-  `nama_belakang` char(25) NOT NULL,
-  `email` char(25) NOT NULL,
-  `telp` int(25) NOT NULL,
-  `fax` int(25) NOT NULL,
-  `alamat1` text NOT NULL,
-  `alamat2` text NOT NULL,
-  `kode_pos` int(25) NOT NULL,
-  `provinsi` char(25) NOT NULL,
-  `kota` char(25) NOT NULL,
-  `username` char(25) NOT NULL,
-  `password` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `id_admin` char(50) NOT NULL,
+  `id_provinsi` char(25) NOT NULL,
+  `id_kota` char(5) NOT NULL,
+  `id_kecamatan` char(10) NOT NULL,
+  `nama_toko` char(50) NOT NULL,
+  `email` char(50) NOT NULL,
+  `pass` text NOT NULL,
+  `nm_penanggung_jawab` char(50) NOT NULL,
+  `no_telp` char(25) NOT NULL,
+  `kode_sales` char(10) NOT NULL,
+  `nm_penerima` char(50) NOT NULL,
+  `no_telp_penerima` char(25) NOT NULL,
+  `kode_pos` char(10) NOT NULL,
+  `alamat` text NOT NULL,
+  `tgl` char(50) NOT NULL,
+  `status` char(5) NOT NULL,
+  `aktif` char(5) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`id_customer`, `nama_depan`, `nama_belakang`, `email`, `telp`, `fax`, `alamat1`, `alamat2`, `kode_pos`, `provinsi`, `kota`, `username`, `password`) VALUES
-(1, 'a', 's', 'toptracker05@yahoo.com', 11, 112, '1', '2', 22, '11', '1101', 'agung', 'e59cd3ce33a68f536c19fedb82a7936f'),
-(2, 'agung', 'prabowo', 'agungprabowo11069@yahoo.c', 2147483647, 123, 'alamat 1', 'alamat 2', 50245, '94', '9471', '', ''),
-(3, 'prabowo', 'agung', 'toptracker05@yahoo.co.id', 2147483647, 112, 'bendungan', 'sepi', 50, '11', '1101', 'agung', '3c24ca7afbc8766f1acb7d67893ec16d'),
-(4, 'coba', 'ajax', 'toptracker05@yahoo.com', 2147483647, 112, 'bendungan', 'alamat 2', 22, '11', '1101', 'q', 'f1290186a5d0b1ceab27f4e77c0c5d68'),
-(5, '', '', '', 0, 0, '', '', 0, '12', '---Pilih Kota---', '', 'd41d8cd98f00b204e9800998ecf8427e'),
-(6, '', '', '', 0, 0, '', '', 0, '12', '---Pilih Kota---', '', 'd41d8cd98f00b204e9800998ecf8427e');
+INSERT INTO `customer` (`id_customer`, `id_admin`, `id_provinsi`, `id_kota`, `id_kecamatan`, `nama_toko`, `email`, `pass`, `nm_penanggung_jawab`, `no_telp`, `kode_sales`, `nm_penerima`, `no_telp_penerima`, `kode_pos`, `alamat`, `tgl`, `status`, `aktif`) VALUES
+(20, '12', '33', '3374', '3374160', 'top tracker', 'agungprabowo112@gmail.com', 'e59cd3ce33a68f536c19fedb82a7936f', 'Prabowo', '809739293937', '4992', 'Prabowo', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'YES'),
+(21, '19', '', '', '', '', '', '', 'Coba Kode', '', '4318', '', '', '', '', '', 'YES', ''),
+(22, '19', '13', '', '', 'Tracker', 'toptracker05@yahoo.com', 'e59cd3ce33a68f536c19fedb82a7936f', 'Aku', '089640192828', '8023', 'Aku', '089640192828', '50245', 'jl. bukit barisan', '', 'YES', ''),
+(23, '12', '33', '', '', 'top', 'toptracker5@yahoo.com', '2c6147fee004b10a047a23ff6c5b7257', 'rosit', '0892794724929', '2972', 'rosit', '0892794724929', '50245', 'jl.bukit barisan', '', 'YES', ''),
+(24, '12', '11', '', '', 'top tracker', 'agungprabowo@gmail.com', '02e2ef2f75753892971438e143ecd819', 'agoeng', '809739293937', '4195', 'agoeng', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(25, '19', '11', '', '', 'top tracker', 'agoeng9@gmail.com', '4654ecfe0e8a68e49ee668175b252dfd', 'semangat', '809739293937', '7765', 'semangat', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(26, '12', '11', '', '', 'top tracker', 'agoeng79@gmail.com', '4654ecfe0e8a68e49ee668175b252dfd', 'semangat bro', '809739293937', '202', 'semangat bro', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(27, '19', '11', '', '', 'top tracker', 'agungprabowo1@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'semangat jon', '809739293937', '7402', 'semangat jon', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(28, '12', '19', '', '', 'top tracker', 'agungprabowo11@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'terus berjuang', '809739293937', '6944', 'terus berjuang', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'YES'),
+(29, '19', '33', '3374', '3374050', 'tracker top', 'email@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'coba', '0792729429429', '6065', 'coba', '0792729429429', '50245', 'jl.bendungan rt/rw 05/v kel.barusari', '', 'YES', 'NO'),
+(30, '12', '33', '3374', '3374160', 'nama toko', 'toptracker05@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'coba register', '089778899227', '4678', 'coba register', '089778899227', '50245', 'jl bendungan', '', 'YES', 'NO'),
+(31, '19', '32', '3273', '3273190', 'toko nama', 'toptracker05@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'lagi coba', '089383849390', '1069', 'lagi coba', '089383849390', '50245', 'jl jalan raya', '', 'YES', 'NO'),
+(33, '19', '', '', '', '', '', '', 'Contoh', '', '9428', '', '', '', '', '', 'NO', 'NO'),
+(34, '12', '', '', '', '', '', '', 'Example', '', '290', '', '', '', '', '', 'NO', 'NO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_kirim`
+--
+
+CREATE TABLE IF NOT EXISTS `customer_kirim` (
+  `id_customer_kirim` int(25) NOT NULL,
+  `nama_depan` char(25) NOT NULL,
+  `nama_belakang` char(25) NOT NULL,
+  `telephone` int(25) NOT NULL,
+  `alamat` text NOT NULL,
+  `kode_pos` int(25) NOT NULL,
+  `provinsi` char(25) NOT NULL,
+  `kota` char(25) NOT NULL,
+  `kecamatan` char(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_user`
+--
+
+CREATE TABLE IF NOT EXISTS `customer_user` (
+  `id_customer_user` int(10) NOT NULL,
+  `username` char(25) NOT NULL,
+  `email` char(50) NOT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -7154,8 +7202,8 @@ CREATE TABLE IF NOT EXISTS `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `kategori`) VALUES
-(1, 'coba'),
-(2, 'coba lagi');
+(1, 'Concox'),
+(2, 'Meitrack');
 
 -- --------------------------------------------------------
 
@@ -7238,33 +7286,70 @@ INSERT INTO `komentar` (`id_komentar`, `id_produk`, `nama`, `email`, `isi_koment
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pesanan`
+--
+
+CREATE TABLE IF NOT EXISTS `pesanan` (
+  `id_order` int(10) NOT NULL,
+  `id_admin` char(50) NOT NULL,
+  `kode_sales` char(10) NOT NULL,
+  `id_pesanan` char(10) NOT NULL,
+  `nm_produk` char(50) NOT NULL,
+  `harga` char(25) NOT NULL,
+  `qty` char(10) NOT NULL,
+  `nama_toko` char(50) NOT NULL,
+  `nm_penerima` char(50) NOT NULL,
+  `alamat` text NOT NULL,
+  `kode_pos` char(10) NOT NULL,
+  `status` char(10) NOT NULL,
+  `no_telp` char(25) NOT NULL,
+  `total` char(50) NOT NULL,
+  `tgl_beli` char(30) NOT NULL,
+  `resi` char(30) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pesanan`
+--
+
+INSERT INTO `pesanan` (`id_order`, `id_admin`, `kode_sales`, `id_pesanan`, `nm_produk`, `harga`, `qty`, `nama_toko`, `nm_penerima`, `alamat`, `kode_pos`, `status`, `no_telp`, `total`, `tgl_beli`, `resi`) VALUES
+(81, '12', '4992', '1971', 'Lorem Ipsum', '2500000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2500000', '1453806010', ''),
+(82, '12', '4992', '1971', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2000000', '1453806010', ''),
+(83, '12', '4992', '6241', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2000000', '1453806936', ''),
+(84, '12', '4992', '6241', 'Lorem Ipsum', '2500000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2500000', '1453806936', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `produk`
 --
 
 CREATE TABLE IF NOT EXISTS `produk` (
   `id_produk` int(5) NOT NULL,
   `id_kategori` char(25) NOT NULL,
-  `judul` char(25) NOT NULL,
+  `judul` char(100) NOT NULL,
   `harga` char(25) NOT NULL,
   `stok` char(25) NOT NULL,
   `isi` text NOT NULL,
   `gambar` text NOT NULL,
   `tanggal` int(30) NOT NULL,
   `aktif` enum('Y','N') NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `produk`
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `judul`, `harga`, `stok`, `isi`, `gambar`, `tanggal`, `aktif`) VALUES
-(1, '1', 'coba judul', '50000000', '20', '<p>\n	<em>coba</em> <strong>Artikel</strong> <u>coba</u> <span style="font-size:48px;">artikel</span></p>\n<p>\n	&nbsp;</p>\n', '178501399f5faceb88adb59c4fd33d89.png', 0, 'Y'),
+(1, '2', 'Meitrack - MVT800', '1500000', '49', '<p>\n	<span style="font-size:16px;"><strong>Fungsi Produk :</strong></span><br />\n	<br />\n	<span style="font-size:14px;">- U-blox 6 GPS dan Quad Band GSM 850/900/1800/1900MHz<br />\n	- GPS + Dual GSM Modul Tracking<br />\n	- SMS / TCP / UDP (MEITRACK dan Meiligao Protokol kompatibel<br />\n	- Tahan Air (IP65)<br />\n	- Melacak pada permintaan<br />\n	- Melacak Waktu / Jarak Interval<br />\n	- Pelacakan Pada Ponsel<br />\n	- Mendengarkan atau Dua arah Audio (Opsional)<br />\n	- Internal Flash Memory (8M)<br />\n	- Sensor Gerak<br />\n	- Pencadangan Baterai internal 850mAh<br />\n	- SOS Alarm<br />\n	- Geo-fence Alarm (Pembatasan Jarak Tempuh)<br />\n	- GPS Alarm Pada Tempat Tertentu<br />\n	- Alarm jika Baterai Lemah<br />\n	- Alarm Jika Melebihi Batas Kecepatan yang ditentukan<br />\n	- Tow Alarm<br />\n	- Antena GPS<br />\n	- Alarm Jika Daya Pada Mesin Dipotong /memotong mesin(Mesin imobilisasi)<br />\n	- Laporan jarak tempuh<br />\n	- 4 Digital Input (1 Negatif, 1 Positif dan 2 dapat diatur melalui perangkat lunak)<br />\n	- 2 output<br />\n	- 1 Analog Input Bahan Bakar Pendeteksian (Opsional)<br />\n	- 1 Input untuk Pulse Pendeteksian Kecepatan<br />\n	- 1 Output untuk Buzzer Alarm (Opsional)<br />\n	- 1 Input untuk Digital Temperature Sensor (Opsional)<br />\n	- Kontrol Jarak Jauh nirkabel (Opsional)<br />\n	- Free Web Tracking</span></p>\n', '24f8c2c966fd1ef7a7e4d24e6a4b61a8.png', 0, 'Y'),
 (3, '1', 'pp', '1000000', '50', '<p>\n	wqwqw</p>\n', 'cd5d38216a592fe8f8b3d301b678f627.png', 1443820536, 'Y'),
 (4, '1', 'sss', '1380710', '30', '<p>\n	sss</p>\n', '361657ce52cba69d123288bd0ee5c7a3.png', 1443964854, 'Y'),
 (5, '1', 'aha', '179313', '20', '<p>\n	aha</p>\n', '9d592a97586f2f8ef3856a7fb25cc0cf.png', 1443965171, 'Y'),
 (6, '1', 'asa', '381093', '90', '<p>\n	asa</p>\n', 'e593a00149d745f6d27ba3338a302d5c.png', 1443965949, 'Y'),
 (8, '1', 'coba kategori', '31001030', '15', '<p>\n	The first parameter can contain any segments you wish appended to the URL. As with the <dfn>site_url()</dfn> function above, segments can be a string or an array.</p>\n<p>\n	<strong>Note:</strong>&nbsp; If you are building links that are internal to your application do not include the base URL (http://...). This will be added automatically from the information specified in your config file. Include only the URI segments you wish appended to the URL.</p>\n<p>\n	The second segment is the text you would like the link to say. If you leave it blank, the URL will be used.</p>\n<p>\n	The third parameter can contain a list of attributes you would like added to the link. The attributes can be a simple string or an associative array.</p>\n<p>\n	Here are some examples:</p>\n', '7c5d51c801fe6bd372012ce386d15cf0.png', 1444424646, 'Y'),
-(9, '1', 'coba harga', '150000000123', '50', '<p>\n	The first parameter can contain any segments you wish appended to the URL. As with the <dfn>site_url()</dfn> function above, segments can a be string or an array.</p>\n<p>\n	<strong>Note:</strong>&nbsp; If you are building links that are internal to your application do not include the base URL (http://...). This will be added automatically from the information specified in your config file. Include only the URI segments you wish appended to the URL.</p>\n<p>\n	The second segment is the text you would like the link to say. If you leave it blank, the URL will be used.</p>\n<p>\n	The third parameter can contain a list of attributes you would like added to the link. The attributes can be a simple string or an associative array.</p>\n<p>\n	Here are some examples:</p>\n', '604624c5abe227f9872b2a7b2139e4d3.png', 1444468081, 'N');
+(9, '1', 'CONCOX - ET200', '700000', '49', '<p>\n	<span style="font-size:14px;"><strong>Fitur ET200 :</strong></span><br />\n	<br />\n	Cek posisi via sms dan webtracking<br />\n	Mematikan dan menghidupkan mesin<br />\n	Laporan mesin mati/hidup (sms dan Web)<br />\n	Laporan SOS bila alat di sabotase<br />\n	Riwayat perjalanan 30hari<br />\n	Lihat kecepatan<br />\n	Pembatasan kecepatan (speed limit)<br />\n	Pembatasan area (geofence)<br />\n	Cek pulsa<br />\n	Backup Baterai<br />\n	Free Server (gps-trace)<br />\n	Water resistance (Tahan cipratan air dan debu).</p>\n', 'ec633e04ed31c7f5515052679cc28e7c.jpg', 1444468081, 'Y'),
+(10, '2', 'GPS Tracker Meitrack - MVT600', '2000000', '47', '<p>\n	Produk ini merupakan produk gps tracker dengana fasiltas paling lengkap dan fitur yang melimpah. Berikut fitur dan kelebihan dari gps tracker ini:</p>\n<ul>\n	<li>\n		SiRF III GPS and Quad Band GSM 850/900/1800/1900 Mhz</li>\n	<li>\n		Support AGPS (with GSM Base Station ID)</li>\n	<li>\n		Track by SMS/GPRS (Meitrack Protocol)</li>\n	<li>\n		Track on Demand</li>\n	<li>\n		Track by Time Interval</li>\n	<li>\n		Track by Distance Interval</li>\n	<li>\n		Track on Mobile Phone</li>\n	<li>\n		Listen-in or two-way audio (optional)</li>\n	<li>\n		Internal Flash Memory (8MB)</li>\n	<li>\n		Inbuilt Accelerating Sensor</li>\n	<li>\n		Inbuilt Motion Sensor</li>\n	<li>\n		Internal Backup Battery</li>\n	<li>\n		SOS Alarm</li>\n	<li>\n		Geo-fence Alarm</li>\n	<li>\n		GPS Blind Area Alarm</li>\n	<li>\n		Low Battery Alarm</li>\n	<li>\n		Speeding Alarm</li>\n	<li>\n		Tow Alarm</li>\n	<li>\n		GPS Antenna Cut Alarm</li>\n	<li>\n		External Power Cut Alarm</li>\n	<li>\n		Mileage Report</li>\n	<li>\n		Engine Cut (Engine immobilization)</li>\n	<li>\n		Inbuilt Super Magnet (optional)</li>\n	<li>\n		Handset Phone (optional)</li>\n	<li>\n		Camera (optional)</li>\n	<li>\n		Micro SD Card Memory for Storing Pictures (Optional)</li>\n	<li>\n		RFID Reader (optional)</li>\n	<li>\n		LED Display (optional)</li>\n	<li>\n		LCD Display (optional)</li>\n	<li>\n		3 Digital Inputs</li>\n	<li>\n		3 Outputs</li>\n	<li>\n		3 Analog Inputs</li>\n</ul>\n<p>\n	Unit GPS Tracker MVT 600 sangat cocok digunakan untuk Taksi, Truk pengangkut, Armada security (keamanan) , Trailer, Armada pengiriman barang berharga , maupun armada Bus.</p>\n<p>\n	<a href="http://i2.wp.com/gpstrackercenter.com/wp-content/uploads/2013/12/assesoris-mvt600.png"><img alt="Accessories MVT 600" class="size-medium wp-image-99 " height="189" src="http://i2.wp.com/gpstrackercenter.com/wp-content/uploads/2013/12/assesoris-mvt600.png?resize=300%2C189" width="300" /></a></p>\n', 'c4d2fded099bc4fbe59360c3b50c0037.png', 1450876995, 'Y'),
+(11, '1', 'Lorem Ipsum', '2500000', '-1', '<p style="margin: 0px 0px 10px; padding: 0px; border: 0px; outline: 0px; font-size: 13px; vertical-align: baseline; color: rgb(0, 0, 0); font-family: arial; background: transparent;">\n	Sociis pid sociis rhoncus hac ac auctor enim a etiam velit phasellus? Sit in a, eros phasellus adipiscing et in et magna ac phasellus, nisi sed, et diam? Urna natoque tincidunt vut! Penatibus! Ridiculus aliquam! Rhoncus! Pellentesque augue placerat, sed duis magnis! Ridiculus, augue odio, mid tortor aliquam, nisi nec porttitor arcu facilisis phasellus urna, cursus elementum et, urna phasellus. Quis elit mauris vel lacus nec integer tristique aliquam, velit in tempor. Eros nisi et tristique a. Nisi? Magna ac! Amet vut amet nisi! Turpis habitasse montes sagittis, mattis ultrices. Dictumst aliquet pulvinar urna et nascetur, sed, quis, nisi placerat porta duis! Tincidunt sit, nascetur scelerisque vut eros ac scelerisque lectus? Est habitasse facilisis, rhoncus in, penatibus vut in aliquam in nec tempor placerat habitasse. Amet? Pellentesque lundium! Nec dignissim cursus ut mauris turpis enim. Aenean ac egestas aliquet porttitor. Eu dapibus nunc pid, natoque! Platea mattis sit elementum placerat, ac porta lorem proin in auctor. Egestas nec est diam dis lorem, augue ultricies amet elit, sagittis ultricies a rhoncus cum porta porta scelerisque! Scelerisque nec sagittis, diam arcu ut. Ultricies a, augue dignissim augue? Ut auctor? Augue tortor? Et augue integer? Sed integer magnis cum in, non etiam porttitor.</p>\n<p style="margin: 0px 0px 10px; padding: 0px; border: 0px; outline: 0px; font-size: 13px; vertical-align: baseline; color: rgb(0, 0, 0); font-family: arial; background: transparent;">\n	Ac, tortor vel, tortor! In rhoncus habitasse et, dolor placerat amet? Magna porttitor a amet. Velit. Platea, sociis tortor, duis nunc in facilisis, odio in pulvinar ultricies et egestas in cum lectus est. Lectus, elementum? Scelerisque magna arcu arcu ultricies velit, tincidunt. Elementum lorem turpis. Amet scelerisque, nec natoque placerat vel, risus ac egestas dignissim turpis pulvinar nec a. Nisi lundium magnis tortor et elit et nunc ac urna! In etiam, urna eu facilisis. Montes adipiscing lorem augue et tempor lorem facilisis dignissim ut elementum duis ut, rhoncus, quis, tempor cras penatibus turpis? Placerat amet, non elementum turpis, nisi? Tincidunt pulvinar, vel cras nec lacus mattis integer porta, mid sed in porta nisi tincidunt turpis dolor amet. Eros mid tristique tempor? Tempor, et! Risus ac in, proin pulvinar in, massa in dictumst, turpis dolor enim. Phasellus elit porttitor cursus, mauris? In lacus, adipiscing aenean? Auctor amet nisi habitasse ac. Platea, ac. Porta tristique augue parturient proin, amet lundium amet. Ultrices augue placerat natoque! Magna? A, in purus, tristique porttitor ultrices? Rhoncus pulvinar sit etiam proin pulvinar duis! Ut vel dignissim pulvinar elementum sed? Mus? Vel elit! Lacus tortor ac? Nisi, phasellus. Ut a facilisis sagittis vut turpis adipiscing in.</p>\n', '22ed71baac8fad159961c9e0ac7505b2.png', 1453612028, 'Y');
 
 -- --------------------------------------------------------
 
@@ -89824,6 +89909,18 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id_customer`);
 
 --
+-- Indexes for table `customer_kirim`
+--
+ALTER TABLE `customer_kirim`
+  ADD PRIMARY KEY (`id_customer_kirim`);
+
+--
+-- Indexes for table `customer_user`
+--
+ALTER TABLE `customer_user`
+  ADD PRIMARY KEY (`id_customer_user`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
@@ -89841,6 +89938,12 @@ ALTER TABLE `kategori`
 --
 ALTER TABLE `komentar`
   ADD PRIMARY KEY (`id_komentar`);
+
+--
+-- Indexes for table `pesanan`
+--
+ALTER TABLE `pesanan`
+  ADD PRIMARY KEY (`id_order`);
 
 --
 -- Indexes for table `produk`
@@ -89876,12 +89979,22 @@ ALTER TABLE `villages`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `no` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `no` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id_customer` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id_customer` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+--
+-- AUTO_INCREMENT for table `customer_kirim`
+--
+ALTER TABLE `customer_kirim`
+  MODIFY `id_customer_kirim` int(25) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `customer_user`
+--
+ALTER TABLE `customer_user`
+  MODIFY `id_customer_user` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `kategori`
 --
@@ -89893,10 +90006,15 @@ ALTER TABLE `kategori`
 ALTER TABLE `komentar`
   MODIFY `id_komentar` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
 --
+-- AUTO_INCREMENT for table `pesanan`
+--
+ALTER TABLE `pesanan`
+  MODIFY `id_order` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
+--
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id_produk` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- Constraints for dumped tables
 --

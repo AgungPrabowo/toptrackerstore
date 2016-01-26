@@ -24,14 +24,6 @@ class Produk extends CI_Controller {
 		$isi['link']			= base_url().'index.php/admin/produk';
 		$isi['data']			= $this->db->get('kategori');
 		$isi['tipe']			= 'tambah';
-		$isi['id_produk']		= '';
-		$isi['judul_produk']	= '';
-		$isi['harga']			= '';
-		$isi['stok']			= '';
-		$isi['kategori']		= '';
-		$isi['isi']				= '';
-		$isi['gambar']			= '';
-		$isi['aktif']			= '';
 		$this->load->view('admin/tampilan_home',$isi);
 	}
 
@@ -52,8 +44,9 @@ class Produk extends CI_Controller {
 		foreach($query->result() as $row)
 		{
 			$isi['id_produk']		= $row->id_produk;
-			$isi['judul_produk']	= $row->judul;
 			$isi['kategori']		= $row->id_kategori;
+			$isi['judul_produk']	= $row->judul;
+			$isi['data']			= $this->db->get('kategori');
 			$isi['harga']			= $row->harga;
 			$isi['stok']			= $row->stok;
 			$isi['isi']				= $row->isi;

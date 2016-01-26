@@ -5,30 +5,122 @@ class Blog extends CI_Controller {
 
 	public function index()
 	{
-		$data['isi'] = $this->db->order_by('id_produk', 'DESC')
-								->get('produk');
+		$this->load->view('login');
+	}
+
+	public function home()
+	{
+		$query					= $this->session->userdata('email');
+		$key 					= $this->model_customer->getdata_uri($query);
+		$data['breadcrumbs']	= site_url();
+		$data['data'] 			= $this->model_produk->dataproduk();
+		$data['key']			= $key->kode_sales;
+
 		$this->load->view('tampilan_home', $data);
 	}
 
-	public function add_to_cart($key)
+	public function registrasi($kode_sales)
 	{
-		$this->load->model('model_produk');
-		$produk = $this->model_produk->getdata($key);
-		$data 	= array(
-					'id'		=> $produk->id_produk,
-					'qty'		=> 1,
-					'price'		=> $produk->harga,
-					'name'		=> $produk->judul
-				);
-		$this->cart->insert($data);
-		redirect(base_url());
+		$this->model_security->getsecurity_client($kode_sales);
+		$kode_sales = $this->uri->segment(3);
+		$query		= $this->db->where('kode_sales', $kode_sales)
+							   ->get('customer');
+		$hasil		= $query->row();
 
+		if($kode_sales == 0)
+		{
+			redirect(site_url());
+		}
+
+		$data['breadcrumbs']	= site_url();
+		$data['provinsi'] 		= $this->db->get('provinces');
+		$data['nama']			= $hasil->nm_penanggung_jawab;
+		$data['kode_sales']		= $hasil->kode_sales;
+		$data['status']			= 'YES';
+		$this->load->view('registrasi',$data);
+
+	}
+
+	public function cek_kode_sales()
+	{
+		$kode_sales = $this->input->post('kode_sales');
+		$nama 		= $this->input->post('nama');
+
+		$query		= $this->model_customer->getdata_kode_sales($kode_sales,$nama);
+	}
+	
+	public function simpan_registrasi()
+	{
+		$this->load->model('model_customer');
+		$kode_sales 					= $this->input->post('kode_sales');
+		$re_pass						= md5($this->input->post('re-pass'));
+		$data['nama_toko']				= $this->input->post('nama_toko');
+		$data['email']					= $this->input->post('email');
+		$data['pass']					= md5($this->input->post('pass'));
+		$data['nm_penanggung_jawab']	= $this->input->post('nm_penanggung_jawab');
+		$data['no_telp'] 				= $this->input->post('no_telp');
+		$data['nm_penerima'] 			= $this->input->post('nm_penerima');
+		$data['no_telp_penerima'] 		= $this->input->post('no_telp_penerima');
+		$data['kode_pos'] 				= $this->input->post('kode_pos');
+		$data['id_provinsi'] 			= $this->input->post('provinsi');
+		$data['id_kota'] 				= $this->input->post('kota');
+		$data['id_kecamatan'] 			= $this->input->post('kecamatan');
+		$data['alamat'] 				= $this->input->post('alamat');
+		$data['status']					= $this->input->post('status');
+		$data['tgl'] 					= time()+3600*7;
+		$data['aktif']					= 'NO';
+
+		if($re_pass != $data['pass'])			
+		{
+			$this->session->set_flashdata('info','Password tidak sama');
+			redirect(site_url('/blog/registrasi'));
+		}
+		else
+		{
+			$this->model_customer->getupdate($kode_sales,$data);
+		}
+
+		$ci = get_instance();
+        $ci->load->library('email');
+		$enkripsi 	 			= md5($kode_sales);
+        $config['protocol'] 	= "smtp";
+        $config['smtp_host'] 	= "ssl://smtp.gmail.com";
+        $config['smtp_port'] 	= "465";
+        $config['smtp_user'] 	= "toptrackerstore79@gmail.com";
+        $config['smtp_pass'] 	= "Bukitbarisan79";
+        $config['charset'] 		= "utf-8";
+        $config['mailtype'] 	= "html";
+        $config['newline'] 		= "\r\n";
+        
+        
+        $ci->email->initialize($config);
+ 
+        $ci->email->from($config['smtp_user'], 'Admin Top Tracker Store');
+        $ci->email->to($data['email']);
+        $ci->email->subject('Verifikasi Akun Top Tracker Store');
+        $ci->email->message("terimakasih telah melakuan registrasi, untuk memverifikasi silahkan klik tautan dibawah ini<br><br>
+       						<a href=".site_url('/blog/verifikasi/'.$enkripsi).">".site_url('/blog/verifikasi/'.$enkripsi));
+        if ($this->email->send()) {
+            echo "Silahkan cek email Anda untuk melakukan verifikasi Akun Top Tracker Store<br>
+            	  Kembali ke halaman <a href=".site_url().">login</a>";
+        } else {
+            show_error($this->email->print_debugger());
+        }
+	}
+
+	public function verifikasi($key)
+	{
+		$this->model_customer->verifikasi($key);
+		echo "Akun Anda telah Aktif<br><br><a href='".site_url()."'>Kembali ke Menu Login</a>";
 	}
 
 	public function detail($key)
 	{
 		$this->load->model('model_produk');
 		$query  				= $this->model_produk->getdata($key);
+		$session				= $this->session->userdata('email');
+		$kode_sales				= $this->model_customer->getdata_uri($session);
+		$data['breadcrumbs']	= site_url('/blog/home');
 		$data['id_produk'] 		= $query->id_produk;
 		$data['judul']			= $query->judul;
 		$data['harga']			= $query->harga;
@@ -38,102 +130,17 @@ class Blog extends CI_Controller {
 		$data['email']			= '';
 		$data['nama']			= '';
 		$data['isi']			= '';
+		$data['key']			= $kode_sales->kode_sales;
+
 
 		$this->load->view('tampilan_detail', $data);
 	}
 
-	public function ambil_komentar($key)
-	{
-		$this->load->model('model_komentar');
-		$komentar = $this->model_komentar->getdata($key);
-		foreach($komentar->result() as $row)
-		{
-			echo "<p id='komentar'>".$row->nama."<br>";
-			echo generate_tanggal(gmdate('d/m/Y-H:i',$row->tanggal))." WIB<br>";
-			echo $row->isi_komentar.'</p>';
-		}
-	}
-
-	public function insert_komentar()
-	{
-		$this->load->model('model_komentar');
-		$key						= $this->input->post('id_produk');
-		$data['id_komentar']		= $this->input->post('id_komentar');
-		$data['id_produk']			= $this->input->post('id_produk');
-		$data['isi_komentar']		= $this->input->post('isi');
-		$data['email']				= $this->input->post('email');
-		$data['nama']				= $this->input->post('nama');
-		$data['tanggal'] 			= time()+3600*7;
-
-
-		$this->model_komentar->getinsert($data);
-		redirect(site_url().'/blog/detail/'.$key);
-	}
-
-	public function cart()
-	{
-		$this->load->view('keranjang_belanja');
-	}
-
-	public function update_cart(){
-                
-        $this->load->model('model_produk');
-        $cart_info = $_POST['cart'] ;
-	 		foreach( $cart_info as $id => $cart)
-			{
-				$stok = $this->model_produk->getdata($cart['id']);
-				if($cart['qty'] <= $stok->stok)	
-				{
-	                    $rowid = $cart['rowid'];
-	                    $qty = $cart['qty'];
-	                    
-	                    $data = array(
-									'rowid'   => $rowid,
-									'qty'     => $qty
-									);
-	            }
-	            else
-	            {
-	            	$this->session->set_flashdata('info','Jumlah Stock Hanya'.$stok->stok);
-	            	redirect(site_url().'/blog/cart');
-	            }
-	             
-				$this->cart->update($data);
-			}
-		redirect(site_url().'/blog/cart');        
-	}		
-
-	public function delete_cart()
-	{
-		$this->cart->destroy();
-		redirect(base_url());
-	}
-
-	public function remove($rowid) {
-                    // Check rowid value.
-		if ($rowid==="all"){
-                       // Destroy data which store in  session.
-			$this->cart->destroy();
-		}else{
-                    // Destroy selected rowid in session.
-			$data = array(
-				'rowid'   => $rowid,
-				'qty'     => 0
-			);
-                     // Update cart data, after cancle.
-			$this->cart->update($data);
-		}
-		
-                 // This will show cancle data in cart.
-		redirect('blog/cart');
-	}
-
 	public function cek_login()
 	{
-		$user 	= $this->input->post('username');
-		$pass	= $this->input->post('password');
+		$user 	= $this->input->post('email');
+		$pass	= md5($this->input->post('pass'));
 
-		$this->load->model('model_customer');
 		$this->model_customer->cek_login($user,$pass);
 	}
 

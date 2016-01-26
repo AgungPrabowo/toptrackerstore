@@ -17,7 +17,7 @@
 
 						<ul class="submenu">
 							<li>
-								<a href="<?=site_url();?>/admin/user">
+								<a href="<?=site_url('/admin/user');?>">
 									<i class="icon-double-angle-right"></i>
 									Daftar User
 								</a>
@@ -35,7 +35,7 @@
 
 						<ul class="submenu">
 							<li>
-								<a href="<?=site_url();?>/admin/produk">
+								<a href="<?=site_url('/admin/produk');?>">
 									<i class="icon-double-angle-right"></i>
 									Daftar Produk
 								</a>
@@ -53,7 +53,7 @@
 
 						<ul class="submenu">
 							<li>
-								<a href="<?=site_url();?>/admin/kategori">
+								<a href="<?=site_url('/admin/kategori');?>">
 									<i class="icon-double-angle-right"></i>
 									Daftar Kategori
 								</a>
@@ -64,16 +64,33 @@
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-comments-alt"></i>
-							<span class="menu-text"> Komentar </span>
+							<span class="menu-text"> Customer </span>
 
 							<b class="arrow icon-angle-down"></b>
 						</a>
 
 						<ul class="submenu">
 							<li>
-								<a href="<?=site_url();?>/admin/komentar">
+								<a href="<?=site_url('/admin/customer/sales');?>">
 									<i class="icon-double-angle-right"></i>
-									Daftar Komentar
+									Daftar Sales
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle">
+							<i class="icon-comments-alt"></i>
+							<span class="menu-text"> Pesanan </span>
+
+							<b class="arrow icon-angle-down"></b>
+						</a>
+
+						<ul class="submenu">
+							<li>
+								<a href="<?=site_url('/admin/pesanan');?>">
+									<i class="icon-double-angle-right"></i>
+									Daftar Pesanan
 								</a>
 							</li>
 						</ul>

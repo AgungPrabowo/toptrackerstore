@@ -26,7 +26,7 @@ echo $info;
 <div class="space-6"></div>
 
 <p>
-	<a href="<?php echo base_url();?>index.php/admin/kategori/tambah" class="btn btn-primary btn-small">Tambah</a>
+	<a href="<?=site_url('/admin/kategori/tambah');?>" class="btn btn-primary btn-small">Tambah</a>
 </p>
 <table id="sample-table-2" class="table table-striped table-bordered table-hover">
 <thead>
@@ -40,14 +40,14 @@ echo $info;
 	<tr>
 		<?php
 		$no = 1;
-		foreach($data->result() as $row){
+		foreach($data->result() as $row):
 		?>
-		<td><?php echo $no++;?></td>
-		<td><?php echo $row->kategori;?></td>
+		<td><?=$no++;?></td>
+		<td><?=$row->kategori;?></td>
 		<td>
-			<a href="<?php echo base_url();?>index.php/admin/kategori/edit/<?php echo $row->id_kategori;?>" class="btn btn-mini btn-danger"><i class="icon-edit bigger-120"></i></a>
-			<a href="<?php echo base_url();?>index.php/admin/kategori/hapus/<?php echo $row->id_kategori;?>" class="btn btn-mini btn-info" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini');"><i class="icon-trash bigger-120"></i></a>
+			<a href="<?=site_url('/admin/kategori/edit/'.$row->id_kategori);?>" class="btn btn-mini btn-danger"><i class="icon-edit bigger-120"></i></a>
+			<a href="<?=site_url('/admin/kategori/hapus/'.$row->id_kategori);?>" class="btn btn-mini btn-info" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini');"><i class="icon-trash bigger-120"></i></a>
 	</tr>
-		<?php }?>
+		<?php endforeach;?>
 </tbody>
 </table>

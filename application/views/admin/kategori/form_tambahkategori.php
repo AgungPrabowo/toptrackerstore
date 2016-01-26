@@ -1,5 +1,5 @@
 <script>
-function ekform()
+function cekform()
 {
 	if(!$("#kategori").val())
 	{

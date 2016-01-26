@@ -9,9 +9,9 @@
 
 		<!--basic styles-->
 
-		<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
+		<link href="<?=base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="<?=base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="<?=base_url();?>assets/css/font-awesome.min.css" />
 
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -25,26 +25,41 @@
 
 		<!--ace styles-->
 
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="<?=base_url();?>assets/css/ace.min.css" />
+		<link rel="stylesheet" href="<?=base_url();?>assets/css/ace-responsive.min.css" />
 
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='<?php echo base_url();?>assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='<?=base_url();?>assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
 		</script>
 
 		
 
 		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='<?php echo base_url();?>assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+			if("ontouchend" in document) document.write("<script src='<?=base_url();?>assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+		<script src="<?=base_url();?>assets/js/bootstrap.min.js"></script>
 
-		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.dataTables.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.dataTables.bootstrap.js"></script>
 
-		<script src="<?php echo base_url();?>assets/js/ace-elements.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/ace.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="<?=base_url();?>assets/js/chosen.jquery.min.js"></script>
+		<script src="<?=base_url();?>assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="<?=base_url();?>assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="<?=base_url();?>assets/js/date-time/bootstrap-timepicker.min.js"></script>
+		<script src="<?=base_url();?>assets/js/date-time/moment.min.js"></script>
+		<script src="<?=base_url();?>assets/js/date-time/daterangepicker.min.js"></script>
+		<script src="<?=base_url();?>assets/js/bootstrap-colorpicker.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.knob.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.autosize-min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.maskedinput.min.js"></script>
+		<script src="<?=base_url();?>assets/js/bootstrap-tag.min.js"></script>
+
+
+		<script src="<?=base_url();?>assets/js/ace-elements.min.js"></script>
+		<script src="<?=base_url();?>assets/js/ace.min.js"></script>
 
 	</head>
 
@@ -297,7 +312,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url();?>index.php/admin/home/logout">
+									<a href="<?=base_url();?>index.php/admin/home/logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -345,7 +360,7 @@
 					</div>
 				</div><!--#sidebar-shortcuts-->
 
-				<?php echo $this->load->view('admin/tampilan_menu'); ?>
+				<?=$this->load->view('admin/tampilan_menu'); ?>
 
 				<div class="sidebar-collapse" id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
@@ -357,13 +372,13 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home home-icon"></i>
-							<a href="<?php echo $link;?>"><?php echo $judul; ?></a>
+							<?=$judul; ?>
 
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active"><?php echo $sub_judul; ?></li>
+						<li class="active"><?=$sub_judul; ?></li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -373,10 +388,10 @@
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							<?php echo $judul; ?>
+							<?=$judul; ?>
 							<small>
 								<i class="icon-double-angle-right"></i>
-								<?php echo $sub_judul; ?>
+								<?=$sub_judul; ?>
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -385,7 +400,7 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<?php echo $this->load->view($content); ?>
+							<?=$this->load->view($content); ?>
 
 							<!--PAGE CONTENT ENDS-->
 						</div><!--/.span-->
@@ -459,14 +474,14 @@
 		  <script src="assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-		<script src="<?php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/jquery.sparkline.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php echo base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.slimscroll.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="<?=base_url();?>assets/js/jquery.sparkline.min.js"></script>
+		<script src="<?=base_url();?>assets/js/flot/jquery.flot.min.js"></script>
+		<script src="<?=base_url();?>assets/js/flot/jquery.flot.pie.min.js"></script>
+		<script src="<?=base_url();?>assets/js/flot/jquery.flot.resize.min.js"></script>
 
 		<!--ace scripts-->
 

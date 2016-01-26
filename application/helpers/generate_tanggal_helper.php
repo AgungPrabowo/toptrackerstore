@@ -11,7 +11,7 @@ if ( ! function_exists('generate_tanggal'))
 		$tanggal = $get_tanggal[0];
 		$bulan = getBulan($get_tanggal[1]);
 		$tahun = $get_tanggal[2];
-		return $tanggal.' '.$bulan.' '.$tahun.' - '.$get_waktu;	
+		return $tanggal.' '.$bulan.' '.$tahun;//.' - '.$get_waktu;	
 	}
 	
 	function getBulan($bln){

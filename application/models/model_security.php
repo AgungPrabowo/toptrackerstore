@@ -9,7 +9,15 @@ class Model_security extends CI_Model {
 		if(empty($username))
 		{
 			$this->session->sess_destroy();
-			redirect('admin/login');
+			redirect(site_url('/admin/login'));
+		}
+	}
+
+	public function getsecurity_client($session)
+	{
+		if(!$session)
+		{
+			redirect(site_url());
 		}
 	}
 
