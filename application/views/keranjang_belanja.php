@@ -22,7 +22,7 @@
             </tr>
             <tr>
               <?php 
-              echo form_open('blog/update_cart');
+              echo form_open('order/update_cart');
               $total_harga = 0;
               $i = 1;
               foreach($this->cart->contents() as $items): 
@@ -46,7 +46,7 @@
                             </td>
                             <td>
                               <?=form_input('cart[' . $items['id'] . '][qty]', $items['qty'], 
-                                    'maxlength="3" size="1" style="text-align: right"'); 
+                                    'maxlength="4" size="3" style="text-align: right"'); 
                               ?>
                             </td>
                             <td>

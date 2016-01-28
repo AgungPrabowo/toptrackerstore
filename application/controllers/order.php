@@ -50,14 +50,21 @@ class Order extends CI_Controller {
 	{
 		$produk = $this->model_produk->getdata($key);
 		$qty	= $this->input->post('qty');
-		$data 	= array(
-					'id'		=> $produk->id_produk,
-					'qty'		=> $qty,
-					'price'		=> $produk->harga,
-					'name'		=> $produk->judul
-				);
-		$this->cart->insert($data);
-		redirect(site_url('/blog/detail/'.$key));
+		if($produk->stok < $qty)
+		{
+			redirect(site_url('/blog/detail/'.$key));
+		}
+		else
+		{
+			$data 	= array(
+						'id'		=> $produk->id_produk,
+						'qty'		=> $qty,
+						'price'		=> $produk->harga,
+						'name'		=> $produk->judul
+					);
+			$this->cart->insert($data);
+			redirect(site_url('/blog/detail/'.$key));
+		}
 
 	}
 
@@ -152,30 +159,39 @@ class Order extends CI_Controller {
 			$this->model_order->simpan_pesanan($data,$data['nm_produk'],$data['qty']);
 		}
 
+		//ambil id_admin
+		$id_admin = $this->model_customer->getdata($key);
+		$email 	  = $this->model_order->getdata_email($id_admin->id_admin);
+
 		//kirim email pesanan ke admin/marketing
-		// $ci = get_instance();
-  //       $ci->load->library('email');
-  //       $config['protocol'] 	= "smtp";
-  //       $config['smtp_host'] 	= "ssl://smtp.gmail.com";
-  //       $config['smtp_port'] 	= "465";
-  //       $config['smtp_user'] 	= "toptrackerstore79@gmail.com";
-  //       $config['smtp_pass'] 	= "Bukitbarisan79";
-  //       $config['charset'] 		= "utf-8";
-  //       $config['mailtype'] 	= "html";
-  //       $config['newline'] 		= "\r\n";
+		$ci = get_instance();
+        $ci->load->library('email');
+        $config['protocol'] 	= "smtp";
+        $config['smtp_host'] 	= "ssl://smtp.gmail.com";
+        $config['smtp_port'] 	= "465";
+        $config['smtp_user'] 	= "toptrackerstore79@gmail.com";
+        $config['smtp_pass'] 	= "Bukitbarisan79";
+        $config['charset'] 		= "utf-8";
+        $config['mailtype'] 	= "html";
+        $config['newline'] 		= "\r\n";
         
         
-  //       $ci->email->initialize($config);
- 
-  //       $ci->email->from($config['smtp_user'], 'Admin Top Tracker Store');
-  //       $ci->email->to('toptracker05@yahoo.com');
-  //       $ci->email->subject('Pesanan Baru');
-  //       $ci->email->message('
-  //       				terimakasih telah melakuan registrasi, untuk memverifikasi silahkan klik tautan dibawah ini<br><br>'.
-  //      					site_url('/blog/verifikasi/'.$enkripsi));
-  //       if ($this->email->send() == FALSE) {
-  //           show_error($this->email->print_debugger());
-  //       }
+        $ci->email->initialize($config);
+        
+ //BELUM SELESAI
+        foreach($this->cart->contents() as $items)
+        {
+        	$this->email->clear();
+	        $this->email->from($config['smtp_user'], 'Top Tracker Store');
+	        $this->email->to($email->email);
+	        $this->email->subject('Pesanan Baru');
+        	$this->email->message("<h2>Pesanan Baru</h2>
+       						<br><br>Nama Produk&nbsp:&nbsp;".$items['name'].
+				 			"<br>QTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;".$items['qty']);
+        }
+        if ($this->email->send() == FALSE) {
+            show_error($this->email->print_debugger());
+        } 
 
 		$this->cart->destroy();
 		redirect(site_url('/blog/home'));

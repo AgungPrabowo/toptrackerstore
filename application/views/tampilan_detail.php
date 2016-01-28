@@ -38,12 +38,12 @@
 					<p><?=$isi_produk?></p><hr>
 					<?php
 						$username = $this->session->userdata('email');
-						if($username){?>
+						if($username):?>
 					<p><button type="submit" class="btn btn-primary" >Beli</button></p><br><br></form>
 
-					<?php }else{?>
+					<?php else:?>
 					<p><button type="button" data-target="#myModal" class="btn btn-primary" data-toggle="modal" >Beli</button></p><br><br></form>
-					<?php }?>
+					<?php endif;?>
 
 			          <!-- Modal -->
 			          <div id="myModal" class="modal fade" role="dialog">

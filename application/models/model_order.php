@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_order extends CI_Model {
 
+	public function getdata_email($key)
+	{
+		$query = $this->db->where('no',$key)
+						  ->get('admin');
+		return $query->row();
+	}
+
 	public function simpan_pesanan($data,$nm_produk,$qty)
 	{
 		//tambah pesanan
