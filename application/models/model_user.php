@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_user extends CI_Model {
 
+	public function getdata_level($key)
+	{
+		$query = $this->db->where('username',$key)
+						  ->get('admin');
+		return $query->row()->level;
+	}
+
 	public function getdata($key)
 	{
 		$this->db->where('no',$key);
