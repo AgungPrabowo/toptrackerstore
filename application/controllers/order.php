@@ -70,8 +70,13 @@ class Order extends CI_Controller {
 
 	public function cart()
 	{
-		$key   				= $this->session->userdata('email');
-		$data['kode_sales']	= $this->model_customer->getdata_uri($key);
+		$query = $this->session->userdata('email');
+
+		if($query == NULL)
+		{
+			$query				= $this->session->userdata('username');
+		}
+		$data['kode_sales']	= $this->model_customer->getdata_uri($query);
 		$data['key']		= $data['kode_sales']->kode_sales;
 
 		$this->load->view('keranjang_belanja',$data);
@@ -133,37 +138,41 @@ class Order extends CI_Controller {
 	{
 		$total_harga = 0;
 
-		$key 						= $this->input->post('kode_sales');
-		$query						= $this->model_customer->getdata($key);
-		$data['kode_sales']			= $this->input->post('kode_sales');
-		$data['nm_penerima']		= $this->input->post('nm_penerima');
-		$data['no_telp']			= $this->input->post('no_telp');
-		$data['alamat']				= $this->input->post('alamat');
-		$data['kode_pos']			= $this->input->post('kode_pos');
-		$data['status']				= $this->input->post('status');
-		$data['id_admin']			= $this->input->post('id_admin');
-		$data['nama_toko']			= $query->id_customer;
-		$data['tgl_beli']			= time()+3600*7;
-		$data['id_pesanan']			= rand(0,10000);
+		$key 					= $this->input->post('kode_sales');
+		$query					= $this->model_customer->getdata($key);
+		// belum selesai (ambil email admin)
+		// $email_admin			= $this->model_user->getdata_email('admin');
+		$data['kode_sales']		= $this->input->post('kode_sales');
+		$data['nm_penerima']	= $this->input->post('nm_penerima');
+		$data['no_telp']		= $this->input->post('no_telp');
+		$data['alamat']			= $this->input->post('alamat');
+		$data['kode_pos']		= $this->input->post('kode_pos');
+		$data['status']			= $this->input->post('status');
+		$data['id_admin']		= $this->input->post('id_admin');
+		$data['nama_toko']		= $query->id_customer;
+		$data['tgl_beli']		= time()+3600*7;
+		$data['id_pesanan']		= rand(0,10000);
 
 		
 		foreach($this->cart->contents() as $items)
 		{
 			//Data Produk
-			$data['nm_produk']			= $items['name'];
-			$data['harga']				= $items['price'];
-			$data['qty']				= $items['qty'];
-			$total_harga				= $total_harga + $items['subtotal'];
-			$data['total']				= $items['subtotal'];
+			$data['nm_produk']	= $items['name'];
+			$data['harga']		= $items['price'];
+			$data['qty']		= $items['qty'];
+			$total_harga		= $total_harga + $items['subtotal'];
+			$data['total']		= $items['subtotal'];
 
 			$this->model_order->simpan_pesanan($data,$data['nm_produk'],$data['qty']);
 		}
 
-		//ambil id_admin
+		//BELUM SELESAI MOHON DISELESAIKAN (kurang menampilkan produk keseluruhan)
+
+		//ambil id_admin dan ambil email marketing
 		$id_admin = $this->model_customer->getdata($key);
 		$email 	  = $this->model_order->getdata_email($id_admin->id_admin);
 
-		//kirim email pesanan ke admin/marketing
+		//kirim email pesanan ke admin dan marketing
 		$ci = get_instance();
         $ci->load->library('email');
         $config['protocol'] 	= "smtp";
@@ -178,17 +187,14 @@ class Order extends CI_Controller {
         
         $ci->email->initialize($config);
         
- //BELUM SELESAI
-        foreach($this->cart->contents() as $items)
-        {
-        	$this->email->clear();
-	        $this->email->from($config['smtp_user'], 'Top Tracker Store');
-	        $this->email->to($email->email);
-	        $this->email->subject('Pesanan Baru');
-        	$this->email->message("<h2>Pesanan Baru</h2>
-       						<br><br>Nama Produk&nbsp:&nbsp;".$items['name'].
-				 			"<br>QTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;".$items['qty']);
-        }
+ 		//BELUM SELESAI
+    	$this->email->clear();
+        $this->email->from($config['smtp_user'], 'Top Tracker Store');
+        $this->email->to($email->email);
+        $this->email->subject('Pesanan Baru');
+    	$this->email->message("<h2>Pesanan Baru</h2>
+   						<br><br>Nama Toko&nbsp:&nbsp;".strtoupper($query->nama_toko).
+			 			"<br>Tanggal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;".generate_tanggal(gmdate('d/m/Y-H:i',$data['tgl_beli'])));
         if ($this->email->send() == FALSE) {
             show_error($this->email->print_debugger());
         } 
