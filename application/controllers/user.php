@@ -10,7 +10,12 @@ class User extends CI_Controller {
 
 	public function profile($kode_sales)
 	{
-		$query							= $this->session->userdata('email');
+		$query = $this->session->userdata('email');
+
+		if($query == NULL)
+		{
+			$query				= $this->session->userdata('username');
+		}
 		$this->model_security->getsecurity_client($query);
 		$key 							= $this->model_customer->getdata_uri($query);
 		$data['provinsi'] 				= $this->model_wilayah->getdata_prov_row($key->id_provinsi);
@@ -22,6 +27,7 @@ class User extends CI_Controller {
 		$data['kode_sales']				= $key->kode_sales;
 		$data['nama_toko']				= $key->nama_toko;
 		$data['nm_penanggung_jawab']	= $key->nm_penanggung_jawab;
+		$data['username']				= $key->username;
 		$data['no_telp']				= $key->no_telp;
 		$data['alamat']					= $key->alamat;
 		$data['kode_pos']				= $key->kode_pos;
@@ -40,11 +46,17 @@ class User extends CI_Controller {
 
 	public function updatedata_profil()
 	{
-		$query							= $this->session->userdata('email');
+		$query = $this->session->userdata('email');
+
+		if($query == NULL)
+		{
+			$query				= $this->session->userdata('username');
+		}
 		$this->model_security->getsecurity_client($query);
 		$key 							= $this->input->post('kode_sales');
 		$data['nama_toko']				= $this->input->post('nama_toko');
 		$data['nm_penanggung_jawab']	= $this->input->post('nm_penanggung_jawab');
+		$data['username']				= $this->input->post('username');
 		$data['no_telp']				= $this->input->post('no_telp');
 		$data['nm_penerima']			= $this->input->post('nm_penerima');
 		$data['no_telp_penerima']		= $this->input->post('no_telp_penerima');
@@ -61,7 +73,12 @@ class User extends CI_Controller {
 
 	public function updatedata_login()
 	{
-		$query				= $this->session->userdata('email');
+		$query = $this->session->userdata('email');
+
+		if($query == NULL)
+		{
+			$query				= $this->session->userdata('username');
+		}
 		$this->model_security->getsecurity_client($query);
 		$kode_sales			= $this->input->post('kode_sales');
 		$pass_lama			= md5($this->input->post('pass_lama'));
@@ -90,9 +107,14 @@ class User extends CI_Controller {
     
     public function detail_order($id_pesanan)
     {
-		$email							= $this->session->userdata('email');
-		$this->model_security->getsecurity_client($email);
-		$key 							= $this->model_customer->getdata_uri($email);
+		$query = $this->session->userdata('email');
+
+		if($query == NULL)
+		{
+			$query				= $this->session->userdata('username');
+		}
+		$this->model_security->getsecurity_client($query);
+		$key 							= $this->model_customer->getdata_uri($query);
 		$data_pesanan					= $this->model_order->getdata_order($id_pesanan);
 		$data['key']					= $key->kode_sales;
 		$data['order']					= $data_pesanan;

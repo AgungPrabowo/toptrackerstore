@@ -7,6 +7,7 @@ class Customer extends CI_Controller {
 	{
 		$this->model_security->getsecurity();
 		$query				= $this->session->userdata('username');
+		$level 				= $this->model_user->getdata_level($query);
 		$client				= $this->model_customer->getdata_admin_tambah($query);
 		$id 				= $client->no;
 		$isi['content']		= 'admin/customer/tampilan_sales';
@@ -14,6 +15,7 @@ class Customer extends CI_Controller {
 		$isi['sub_judul']	= '';
 		$isi['link']		= '';
 		$isi['tipe']		= 'sales';
+		$isi['level']		= $level;
 		$isi['id_admin']	= $client->no;
 
 		if($client->level == 'Admin')

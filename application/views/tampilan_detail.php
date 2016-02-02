@@ -37,7 +37,12 @@
 						</div>
 					<p><?=$isi_produk?></p><hr>
 					<?php
-						$username = $this->session->userdata('email');
+					$username = $this->session->userdata('email');
+
+					if($username == NULL)
+					{
+						$username = $this->session->userdata('username');
+					}
 						if($username):?>
 					<p><button type="submit" class="btn btn-primary" >Beli</button></p><br><br></form>
 
@@ -62,20 +67,20 @@
 			                    <div class="form-group">
 			                      <div class="input-group">
 			                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-			                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+			                        <input type="text" class="form-control" name="username" placeholder="Email atau Username" required>
 			                      </div>
 			                    </div>
 
 			                    <div class="form-group">
 			                      <div class="input-group">
-			                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+			                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 			                        <input type="password" class="form-control" name="pass" placeholder="Password" required>
 			                      </div>
 			                    </div>
 			                    
 
 			                <div class="modal-footer">
-			                  <button type="submit" class="btn btn-success" >Simpan</button>
+			                  <button type="submit" class="btn btn-success" >Login</button>
 			                  <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
 			                </div>
 

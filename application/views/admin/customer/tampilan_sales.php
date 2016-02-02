@@ -161,7 +161,7 @@ if($info):?>
 						<div class="controls">
 							<input type="hidden" name="tipe" value="<?=$tipe;?>">
 							<input type="hidden" name="key" value="tambah">
-							<input type="text" name="id_admin" value="<?=$id_admin;?>">
+							<input type="hidden" name="id_admin" value="<?=$id_admin;?>">
 							<input type="hidden" name="kode_sales" value="<?=rand(0,10000);?>">
 							<input type="text" name="nama" placeholder="Nama Sales" required>
 						</div>

@@ -97,6 +97,12 @@ if($info||$true){
                     <input type="text" class="form-control" name="nm_penanggung_jawab" value="<?=$nm_penanggung_jawab;?>" required>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class="control-label">Username</label>
+                  <div>
+                    <input type="text" class="form-control" name="username" value="<?=$username;?>" required>
+                  </div>
+                </div>
               <div class="form-group">
                 <label class="control-label">No Telephone</label>
                 <div>
@@ -176,7 +182,7 @@ if($info||$true){
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          <strong id="data-diri">Kelola User</strong>
+          <strong id="data-diri">Ganti Password</strong>
         </a>
       </h4>
     </div><!-- End class=panel-heading -->
@@ -186,15 +192,9 @@ if($info||$true){
         <form action="<?=site_url('/user/updatedata_login');?>" method="POST" onsubmit="return cekpass();">
             <div class="col-sm-12 col-md-12">
                   <div class="form-group">
-                    <label class="control-label">Email</label>
-                    <div>
-                      <input type="hidden" name="kode_sales" value="<?=$kode_sales;?>">
-                      <input type="text" class="form-control" value="<?=$email;?>" disabled>
-                    </div>
-                  </div>
-                  <div class="form-group">
                     <label class="control-label">Password Lama</label>
                     <div>
+                      <input type="hidden" name="kode_sales" value="<?=$kode_sales;?>">
                       <input type="password" class="form-control" name="pass_lama" required>
                     </div>
                   </div>

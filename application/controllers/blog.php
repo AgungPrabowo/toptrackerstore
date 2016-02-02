@@ -10,7 +10,12 @@ class Blog extends CI_Controller {
 
 	public function home()
 	{
-		$query					= $this->session->userdata('email');
+		$query = $this->session->userdata('email');
+
+		if($query == NULL)
+		{
+			$query				= $this->session->userdata('username');
+		}
 		$key 					= $this->model_customer->getdata_uri($query);
 		$data['breadcrumbs']	= site_url();
 		$data['data'] 			= $this->model_produk->dataproduk();
@@ -51,13 +56,13 @@ class Blog extends CI_Controller {
 	
 	public function simpan_registrasi()
 	{
-		$this->load->model('model_customer');
 		$kode_sales 					= $this->input->post('kode_sales');
 		$re_pass						= md5($this->input->post('re-pass'));
 		$data['nama_toko']				= $this->input->post('nama_toko');
 		$data['email']					= $this->input->post('email');
 		$data['pass']					= md5($this->input->post('pass'));
 		$data['nm_penanggung_jawab']	= $this->input->post('nm_penanggung_jawab');
+		$data['username']				= $this->input->post('username');
 		$data['no_telp'] 				= $this->input->post('no_telp');
 		$data['nm_penerima'] 			= $this->input->post('nm_penerima');
 		$data['no_telp_penerima'] 		= $this->input->post('no_telp_penerima');
@@ -70,48 +75,74 @@ class Blog extends CI_Controller {
 		$data['tgl'] 					= time()+3600*7;
 		$data['aktif']					= 'NO';
 
+		// memeriksa username (sudah terpakai atau belum)
+		$query = $this->db->get('customer');
+		foreach($query->result() as $row)
+		{
+			if($row->username == $data['username'])
+			{
+				$this->session->set_flashdata('info','Username sudah terpakai');
+				redirect(site_url('/blog/registrasi/'.$kode_sales));
+			}
+		}
+
 		if($re_pass != $data['pass'])			
 		{
+			// cek password baru sama atau tidak
 			$this->session->set_flashdata('info','Password tidak sama');
-			redirect(site_url('/blog/registrasi'));
+			redirect(site_url('/blog/registrasi/'.$kode_sales));
+		}
+		// jika email diisi maka kirim pesan verifikasi email kepada user/customer
+		// jika email tidak diisi pendaftaran selesai tanpa kirim email verifikasi
+		else if($data['email'] != '')
+		{
+			$update_data_user = $this->model_customer->getupdate($kode_sales,$data);
+
+			// kirim email ke user/customer
+			$ci = get_instance();
+	        $ci->load->library('email');
+			$enkripsi 	 			= md5($kode_sales);
+	        $config['protocol'] 	= "smtp";
+	        $config['smtp_host'] 	= "ssl://smtp.gmail.com";
+	        $config['smtp_port'] 	= "465";
+	        $config['smtp_user'] 	= "toptrackerstore79@gmail.com";
+	        $config['smtp_pass'] 	= "Bukitbarisan79";
+	        $config['charset'] 		= "utf-8";
+	        $config['mailtype'] 	= "html";
+	        $config['newline'] 		= "\r\n";
+	        
+	        
+	        $ci->email->initialize($config);
+	 
+	        $ci->email->from($config['smtp_user'], 'Admin Top Tracker Store');
+	        $ci->email->to($data['email']);
+	        $ci->email->subject('Verifikasi Akun Top Tracker Store');
+	        $ci->email->message("terimakasih telah melakuan registrasi, untuk memverifikasi silahkan klik tautan dibawah ini<br><br>
+	       						<a href=".site_url('/blog/verifikasi/'.$enkripsi).">".site_url('/blog/verifikasi/'.$enkripsi));
+	        if ($this->email->send()) {
+	            echo "Silahkan cek email Anda untuk melakukan verifikasi Akun Top Tracker Store<br>
+	            	  Kembali ke halaman <a href=".site_url().">login</a>";
+	        } else {
+	            show_error($this->email->print_debugger());
+	        }
+
+			$this->session->set_flashdata('true','Akun anda telah aktif');
+			return $update_data_user;
 		}
 		else
 		{
-			$this->model_customer->getupdate($kode_sales,$data);
+			$update_data_user;
+			$this->session->set_flashdata('true','Akun anda telah aktif');
+			redirect(site_url());
+
 		}
 
-		$ci = get_instance();
-        $ci->load->library('email');
-		$enkripsi 	 			= md5($kode_sales);
-        $config['protocol'] 	= "smtp";
-        $config['smtp_host'] 	= "ssl://smtp.gmail.com";
-        $config['smtp_port'] 	= "465";
-        $config['smtp_user'] 	= "toptrackerstore79@gmail.com";
-        $config['smtp_pass'] 	= "Bukitbarisan79";
-        $config['charset'] 		= "utf-8";
-        $config['mailtype'] 	= "html";
-        $config['newline'] 		= "\r\n";
-        
-        
-        $ci->email->initialize($config);
- 
-        $ci->email->from($config['smtp_user'], 'Admin Top Tracker Store');
-        $ci->email->to($data['email']);
-        $ci->email->subject('Verifikasi Akun Top Tracker Store');
-        $ci->email->message("terimakasih telah melakuan registrasi, untuk memverifikasi silahkan klik tautan dibawah ini<br><br>
-       						<a href=".site_url('/blog/verifikasi/'.$enkripsi).">".site_url('/blog/verifikasi/'.$enkripsi));
-        if ($this->email->send()) {
-            echo "Silahkan cek email Anda untuk melakukan verifikasi Akun Top Tracker Store<br>
-            	  Kembali ke halaman <a href=".site_url().">login</a>";
-        } else {
-            show_error($this->email->print_debugger());
-        }
 	}
 
 	public function verifikasi($key)
 	{
 		$this->model_customer->verifikasi($key);
-		echo "Akun Anda telah Aktif<br><br><a href='".site_url()."'>Kembali ke Menu Login</a>";
+		echo "Email Anda telah Aktif<br><br><a href='".site_url()."'>Kembali ke Menu Login</a>";
 	}
 
 	public function detail($key)
@@ -138,7 +169,7 @@ class Blog extends CI_Controller {
 
 	public function cek_login()
 	{
-		$user 	= $this->input->post('email');
+		$user 	= $this->input->post('username');
 		$pass	= md5($this->input->post('pass'));
 
 		$this->model_customer->cek_login($user,$pass);

@@ -65,7 +65,8 @@ if($info||$true){
 		$no = 1;
 		foreach($data->result() as $row):
 			// tampilkan data user
-			if($row->username == $user && $level == 'Marketing'):
+			// hanya menampilkan 1 baris data (user)
+			if($row->username == $user && $level == 'Marketing' || $row->username == $user && $level == 'Operator'):
 		?>
 		<td><?=$no++;?></td>
 		<td><?=$row->username;?></td>
@@ -214,6 +215,10 @@ if($info||$true){
 						</div>
 					</div>
 					
+					<!-- hak akses admin untuk edit level -->
+					<?php 
+					if($level == 'Admin'):
+					 ?>
 					<div class="control-group">
 						<label class="control-label">Level</label>
 						<div class="controls">
@@ -224,6 +229,7 @@ if($info||$true){
 							</select>
 						</div>
 					</div>
+					<?php endif; ?>
 
 				</div>
 			</div>

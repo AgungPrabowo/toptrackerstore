@@ -360,7 +360,7 @@
 					</div>
 				</div><!--#sidebar-shortcuts-->
 
-				<?=$this->load->view('admin/tampilan_menu'); ?>
+				<?=$this->load->view('admin/tampilan_menu',$level); ?>
 
 				<div class="sidebar-collapse" id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>

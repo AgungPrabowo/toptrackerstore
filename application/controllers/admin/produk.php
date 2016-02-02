@@ -7,10 +7,13 @@ class Produk extends CI_Controller {
 	{
 		$this->load->model('model_produk');
 		$this->model_security->getsecurity();
+		$query				= $this->session->userdata('username');
+		$level 				= $this->model_user->getdata_level($query);
 		$isi['content']		= 'admin/produk/tampilan_produk';
 		$isi['judul']		= 'Produk';
 		$isi['sub_judul']	= '';
 		$isi['link']		= '';
+		$isi['level']		= $level;
 		$isi['data']		= $this->db->get('produk');
 		$this->load->view('admin/tampilan_home',$isi);
 	}

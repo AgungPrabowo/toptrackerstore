@@ -7,6 +7,7 @@ class Pesanan extends CI_Controller {
 	{
 		$this->model_security->getsecurity();
 		$query					= $this->session->userdata('username');
+		$level 					= $this->model_user->getdata_level($query);
 		$client					= $this->model_customer->getdata_admin_tambah($query);
 		$id 					= $client->no;
 		$isi['content']			= 'admin/pesanan/tampilan_pesanan';
@@ -14,6 +15,7 @@ class Pesanan extends CI_Controller {
 		$isi['sub_judul']		= '';
 		$isi['link']			= '';
 		$isi['status']			= 'Tertunda';
+		$isi['level']			= $level;
 
 		if($client->level == 'Admin')
 		{
@@ -21,7 +23,7 @@ class Pesanan extends CI_Controller {
 								   	       ->get('pesanan');
 		$isi['data_terkirim']	= $this->db->where('status','Terkirim')
 									       ->get('pesanan');
-		$isi['level']			= 'Admin';
+		$isi['level_pesanan']	= 'Admin';
 		}
 		else
 		{	
@@ -31,7 +33,7 @@ class Pesanan extends CI_Controller {
 		$isi['data_terkirim']	= $this->db->where('status','Terkirim')
 										   ->where('id_admin',$id)
 									       ->get('pesanan');
-		$isi['level']			= '';
+		$isi['level_pesanan']			= '';
 		}
 
 		$this->load->view('admin/tampilan_home',$isi);

@@ -66,7 +66,7 @@ if($info):?>
 					<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-								<?php if($level == 'Admin'):?>
+								<?php if($level_pesanan == 'Admin'):?>
 								<th>Client</th>
 								<?php else:?>
 								<th>No</th>
@@ -92,7 +92,7 @@ if($info):?>
 									foreach($data_tertunda->result() as $row):
 									$query = $this->model_pesanan->getdata_namatoko($row->nama_toko);
 									$client = $this->model_customer->getdata_admin($row->id_admin);
-									if($level == 'Admin'):?>
+									if($level_pesanan == 'Admin'):?>
 									<td><?=$client->row()->nama;?></td>
 									<?php else:?>
 									<td><?=$no++;endif;?></td>
@@ -115,7 +115,7 @@ if($info):?>
 					<thead>
 						<tr>
 							<?php 
-							if($level == 'Admin'):?>
+							if($level_pesanan == 'Admin'):?>
 							<th>Client</th>
 							<?php else:?>
 							<th>No</th>
@@ -140,7 +140,7 @@ if($info):?>
 								$query = $this->model_pesanan->getdata_namatoko($row->nama_toko);
 								//ambil nama admin/marketing
 								$client = $this->model_customer->getdata_admin($row->id_admin);
-								if($level == 'Admin'):?>
+								if($level_pesanan == 'Admin'):?>
 								<td><?=$client->row()->nama;?></td>
 								<?php else:?>
 								<td><?=$no++;endif;?></td>

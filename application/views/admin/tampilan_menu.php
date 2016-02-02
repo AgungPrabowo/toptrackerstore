@@ -24,7 +24,9 @@
 							</li>
 						</ul>
 					</li>
-
+					
+					<!-- hak akses produk dimiliki operator dan admin -->
+					<?php if($level == 'Admin'||$level == 'Operator'):?>
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-edit"></i>
@@ -42,7 +44,10 @@
 							</li>
 						</ul>
 					</li>
-
+					<?php endif; ?>
+					
+					<!-- hak akses kategori dimiliki operator dan admin -->
+					<?php if($level == 'Admin'||$level == 'Operator'): ?>
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-edit"></i>
@@ -60,7 +65,10 @@
 							</li>
 						</ul>
 					</li>
+					<?php endif; ?>
 
+					<!-- hak akses customer dimiliki marketing dan admin -->
+					<?php if($level == 'Admin'||$level == 'Marketing'): ?>
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-comments-alt"></i>
@@ -78,6 +86,10 @@
 							</li>
 						</ul>
 					</li>
+					<?php endif; ?>
+
+					<!-- hak akses pesanan dimiliki marketing dan admin -->
+					<?php if($level == 'Admin'||$level == 'Marketing'): ?>
 					<li>
 						<a href="#" class="dropdown-toggle">
 							<i class="icon-comments-alt"></i>
@@ -95,5 +107,6 @@
 							</li>
 						</ul>
 					</li>
+					<?php endif; ?>
 
 				</ul><!--/.nav-list-->

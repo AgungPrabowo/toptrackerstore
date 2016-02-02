@@ -31,6 +31,7 @@ class Model_customer extends CI_Model {
 	public function getdata_uri($key)
 	{
 		$query = $this->db->where('email',$key)
+						  ->or_where('username',$key)
 						  ->get('customer');
 		$data  = $query->row();
 		return $data;
@@ -38,17 +39,34 @@ class Model_customer extends CI_Model {
 
 	public function cek_login($user,$pass)
 	{
+		//masuk menggunakan username atau email
 		$query 	= $this->db->where('email', $user)
+						   ->or_where('username', $user)
 				 		   ->where('pass', $pass)
 				 		   ->get('customer');
+		$user 	= $query->row();
 
-		if($query->num_rows() > 0)
+		//jika email ada jalankan query lain jika 
+		//username ada jalankan query
+		if($user->email)
 		{
 			foreach($query->result() as $row)
 			{
 				$data = array(
 							  'email' 	 => $row->email,
 							  'pass' 	 => $row->pass
+							  );
+				$this->session->set_userdata($data);
+				redirect(site_url('/blog/home'));
+			}
+		}
+		else if($user->username)
+		{
+			foreach($query->result() as $row)
+			{
+				$data = array(
+							  'username'	 => $row->username,
+							  'pass' 	 	 => $row->pass
 							  );
 				$this->session->set_userdata($data);
 				redirect(site_url('/blog/home'));

@@ -11,21 +11,21 @@ function validasi()
       $("#nama_toko").focus();
       return false;
 	}
-	else if(!$('#email').val())
+	else if($('#pass').length() < 6 && $('#pass').length() < 20)
 	{
-      alert("Email tidak boleh kosong");
-      $("#email").focus();
-      return false;
+		alert("Panjang Kata Sandi harus 6-20 karakter");
+		$("#pass").focus();
+		return false;
 	}
 	else if(!$('#pass').val())
 	{
-      alert("Password tidak boleh kosong");
+      alert("Kata Sandi tidak boleh kosong");
       $("#pass").focus();
       return false;
 	}
 	else if(!$('#re-pass').val())
 	{
-      alert("Konfirmasi Password tidak boleh kosong");
+      alert("Konfirmasi Kata Sandi tidak boleh kosong");
       $("#re-pass").focus();
       return false;
 	}
@@ -33,6 +33,12 @@ function validasi()
 	{
       alert("Nama Penanggung Jawab tidak boleh kosong");
       $("#nama_penanggung_jawab").focus();
+      return false;
+	}
+	else if(!$('#username').val())
+	{
+      alert("Username tidak boleh kosong");
+      $("#username").focus();
       return false;
 	}
 	else if(!$('#no_telp').val())
@@ -175,7 +181,14 @@ function validasi()
 	        <div class="form-group">
 	          <div class="input-group">
 	          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-	          <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+	          <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+	        </div>
+	      </div>
+
+	        <div class="form-group">
+	          <div class="input-group">
+	          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+	          <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
 	        </div>
 	      </div>
 
@@ -241,7 +254,7 @@ function validasi()
 	            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Penerima" required>
 
 	        <div class="form-group">
-	          <button type="submit" class="btn btn-danger btn-block" >Login</button>
+	          <button type="submit" class="btn btn-danger btn-block" >Daftar</button>
 	        </div>
 
 	      </form>

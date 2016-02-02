@@ -5,17 +5,28 @@
     header('location:'.site_url('/blog/home'));
    }else{
 ?>
-<!--pemberitahuan kesalahan-->
+<!--pemberitahuan-->
 <?php 
 $info = $this->session->flashdata('info');
-if($info):?>
-<div class="alert alert-block alert-danger" role="alert">
+$true = $this->session->flashdata('true');
+if($info||$true){
+  if($info){
+    $alert   = 'danger';
+    $content = $info;
+    $icon    = 'remove';
+  }else{
+    $alert   = 'success';
+    $content = $true;
+    $icon    = 'ok';
+  }
+  ?>
+<div class="alert alert-block alert-<?=$alert;?>" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button> 
-    <i class="glyphicon glyphicon-remove"></i>
-    <?=$info;
-    endif;?>
+    <i class="glyphicon glyphicon-<?=$icon;?>"></i>
+    <?=$content;
+    }?>
 </div>
 
 <div class="container">
@@ -26,7 +37,7 @@ if($info):?>
         <div class="form-group">
           <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-          <input type="email" class="form-control" name="email" placeholder="Email" required>
+          <input type="text" class="form-control" name="username" placeholder="Email atau Username" required>
         </div>
       </div>
 

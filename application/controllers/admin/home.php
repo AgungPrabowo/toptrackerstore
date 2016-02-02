@@ -6,10 +6,13 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$this->model_security->getsecurity();
+		$query				= $this->session->userdata('username');
+		$level 				= $this->model_user->getdata_level($query);
 		$isi['content']		= 'admin/tampilan_content';
 		$isi['judul']		= 'Home';
 		$isi['sub_judul']	= '';
 		$isi['link']		= '';
+		$isi['level']		= $level;
 		$this->load->view('admin/tampilan_home',$isi);
 	}
 
