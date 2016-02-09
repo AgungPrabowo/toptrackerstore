@@ -152,7 +152,7 @@ if($info||$true){
                 <label class="control-label">Kota</label>
                 <div>
                   <select class="form-control" name="kota" id="kota" required>
-                    <option value="<?=$kota->province_id;?>"><?=$kota->name;?></option>
+                    <option value="<?=$kota->id;?>"><?=$kota->name;?></option>
                   </select>
                 </div>
               </div>
@@ -160,7 +160,7 @@ if($info||$true){
                 <label class="control-label">Kecamatan</label>
                 <div>
                   <select class="form-control" name="kecamatan" id="kecamatan" required>
-                    <option value="<?=$kecamatan->regency_id;?>"><?=$kecamatan->name;?></option>
+                    <option value="<?=$kecamatan->id;?>"><?=$kecamatan->name;?></option>
                   </select>
                 </div>
               </div>

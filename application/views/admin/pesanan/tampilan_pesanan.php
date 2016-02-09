@@ -11,7 +11,7 @@ $(function() {
 $(function() {
 	var oTable1 = $('#sample-table-3').dataTable( {
 	"aoColumns": [
-      null, null, null,
+      null, null, null, null,
 	  { "bSortable": false }
 	] } );
 
@@ -73,7 +73,7 @@ if($info):?>
 								<?php endif;?>
 								<th>Nama Toko</th>
 								<th>QTY</th>
-								<th>Harga</th>
+								<th>Total</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -88,6 +88,13 @@ if($info):?>
 									<td></td>
 									<?php
 									endif;
+									$key = 1;
+									foreach($data_tertunda1->result() as $row)
+									{
+										$key++;
+										$total[$key] = $row->total;
+										$qty[$key]	   = $row->qty;
+									}
 									$no = 1;
 									foreach($data_tertunda->result() as $row):
 									$query = $this->model_pesanan->getdata_namatoko($row->nama_toko);
@@ -97,12 +104,57 @@ if($info):?>
 									<?php else:?>
 									<td><?=$no++;endif;?></td>
 									<td><?=$query->nama_toko;?></td>
-									<td><?=$row->qty;?></td>
-									<td><?="Rp ".number_format($row->harga,0,',','.');?></td>
+									<td><?php
+									$qty[$no];
+									$pecah = explode(',',$qty[$no]);//konversi string ke array
+									//membuat kondisi
+									if(count($pecah) == 1)
+									{
+										echo $qty[$no];
+									}
+									else
+									{
+									$jumlah = 0;
+									$i 		= 0;
+
+										while($i <= count($pecah)-1)
+										{
+											$jumlah = $jumlah + $pecah[$i];
+											$i++;
+										}
+
+									echo $jumlah;
+									}
+									?></td>
+									<td><?php
+									$total[$no];
+									$pecah = explode(',',$total[$no]);//konversi string ke array
+									//membuat kondisi
+									if(count($pecah) == 1)
+									{
+										echo "Rp. ".number_format($total[$no],0,',','.');
+									}
+									else
+									{
+									$jumlah = 0;
+									$i 		= 0;
+
+										while($i <= count($pecah)-1)
+										{
+											$jumlah = $jumlah + $pecah[$i];
+											$i++;
+										}
+
+									echo "Rp. ".number_format($jumlah,0,',','.');
+									}
+									?></td>
 									<td>
 										<a href="#myModal" data-toggle="modal" class="btn btn-mini btn-success">
 											<input type="hidden" value="<?=$row->id_order;?>" id="id_order">
-										<i class="icon-arrow-right  icon-on-right"></i>
+										<i class="icon-arrow-right"></i></a>
+
+										<a href="<?=site_url('/admin/pesanan/detail_pesanan/'.$row->id_pesanan);?>" data-toggle="modal" class="btn btn-mini btn-info">
+										<i class="icon-eye-open"></i></a>
 									</td>
 								</tr>
 								<?php endforeach;?>
@@ -112,44 +164,98 @@ if($info):?>
 
 				<div id="profile" class="tab-pane">
 					<table id="sample-table-3" class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr>
-							<?php 
-							if($level_pesanan == 'Admin'):?>
-							<th>Client</th>
-							<?php else:?>
-							<th>No</th>
-							<?php endif;?>
-							<th>Kode Sales</th>
-							<th>Nama</th>
-							<th>Harga</th>
-						</tr>
-					</thead>
-					<tbody>
+						<thead>
 							<tr>
-								<?php
-								if($data_terkirim->num_rows() == 0):?>
-								<td><br></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<?php
-								endif;
-								$no = 1;
-								foreach($data_terkirim->result() as $row):
-								$query = $this->model_pesanan->getdata_namatoko($row->nama_toko);
-								//ambil nama admin/marketing
-								$client = $this->model_customer->getdata_admin($row->id_admin);
-								if($level_pesanan == 'Admin'):?>
-								<td><?=$client->row()->nama;?></td>
+								<?php if($level_pesanan == 'Admin'):?>
+								<th>Client</th>
 								<?php else:?>
-								<td><?=$no++;endif;?></td>
-								<td><?=$query->nama_toko;?></td>
-								<td><?=$row->qty;?></td>
-								<td><?="Rp ".number_format($row->harga,0,',','.');?></td>
+								<th>No</th>
+								<?php endif;?>
+								<th>Nama Toko</th>
+								<th>QTY</th>
+								<th>Total</th>
+								<th>Aksi</th>
 							</tr>
-							<?php endforeach;?>
-					</tbody>
+						</thead>
+							<tbody>
+								<tr>
+									<?php
+									if($data_terkirim->num_rows() == 0):?>
+									<td><br></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<?php
+									endif;
+									$key = 1;
+									foreach($data_terkirim1->result() as $row)
+									{
+										$key++;
+										$total[$key] = $row->total;
+										$qty[$key]	   = $row->qty;
+									}
+									$no = 1;
+									foreach($data_terkirim->result() as $row):
+									$query = $this->model_pesanan->getdata_namatoko($row->nama_toko);
+									$client = $this->model_customer->getdata_admin($row->id_admin);
+									if($level_pesanan == 'Admin'):?>
+									<td><?=$client->row()->nama;?></td>
+									<?php else:?>
+									<td><?=$no++;endif;?></td>
+									<td><?=$query->nama_toko;?></td>
+									<td><?php
+									$qty[$no];
+									$pecah = explode(',',$qty[$no]);//konversi string ke array
+									//membuat kondisi
+									if(count($pecah) == 1)
+									{
+										echo $qty[$no];
+									}
+									else
+									{
+									$jumlah = 0;
+									$i 		= 0;
+
+										while($i <= count($pecah)-1)
+										{
+											$jumlah = $jumlah + $pecah[$i];
+											$i++;
+										}
+
+									echo $jumlah;
+									}
+									?></td>
+									<td><?php
+									$total[$no];
+									$pecah = explode(',',$total[$no]);//konversi string ke array
+									//membuat kondisi
+									if(count($pecah) == 1)
+									{
+										echo "Rp. ".number_format($total[$no],0,',','.');
+									}
+									else
+									{
+									$jumlah = 0;
+									$i 		= 0;
+
+										while($i <= count($pecah)-1)
+										{
+											$jumlah = $jumlah + $pecah[$i];
+											$i++;
+										}
+
+									echo "Rp. ".number_format($jumlah,0,',','.');
+									}
+									?></td>
+									<td>
+										<a href="#myModal" data-toggle="modal" class="btn btn-mini btn-success">
+											<input type="hidden" value="<?=$row->id_order;?>" id="id_order">
+										<i class="icon-arrow-right  icon-on-right"></i>
+									</td>
+								</tr>
+								<?php endforeach;?>
+							</tbody>
 					</table>
 				</div>
 

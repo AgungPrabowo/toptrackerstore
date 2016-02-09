@@ -20,6 +20,7 @@ class Order extends CI_Controller {
 		$data['status']			= 'Tertunda';
 		$data['id_customer']	= $query->id_customer;
 		$data['id_admin']		= $query->id_admin;
+		$data['link']			= '<h1>Alamat Pengiriman Anda</h1>';
 
 		$this->load->view('user/konfirmasi_order', $data);
 	}
@@ -100,8 +101,8 @@ class Order extends CI_Controller {
 	            }
 	            else
 	            {
-	            	$this->session->set_flashdata('info','Jumlah Stock Hanya'.$stok->stok);
-	            	redirect(site_url().'/blog/cart');
+	            	$this->session->set_flashdata('info','Jumlah Stock Hanya '.$stok->stok);
+	            	redirect(site_url('/order/cart'));
 	            }
 	             
 				$this->cart->update($data);
@@ -149,6 +150,9 @@ class Order extends CI_Controller {
 		$data['kode_pos']		= $this->input->post('kode_pos');
 		$data['status']			= $this->input->post('status');
 		$data['id_admin']		= $this->input->post('id_admin');
+		$data['id_provinsi']	= $this->input->post('provinsi');
+		$data['id_kota']		= $this->input->post('kota');
+		$data['id_kecamatan']	= $this->input->post('kecamatan');
 		$data['nama_toko']		= $query->id_customer;
 		$data['tgl_beli']		= time()+3600*7;
 		$data['id_pesanan']		= rand(0,10000);

@@ -40,7 +40,8 @@ $(document).ready(function(){
   
 });
 </script>
-<br><br><br>
+<br><br><br>        
+<!-- form alamat pengiriman -->
 <form method="POST" action="<?=site_url('/order/simpan_pesanan');?>">
   <div class="col-sm-12 col-md-12">
       <h1>Alamat Pengiriman Anda</h1>
@@ -91,7 +92,7 @@ $(document).ready(function(){
         <label class="control-label">Kota</label>
         <div>
           <select class="form-control" name="kota" id="kota">
-            <option value="<?=$kota->province_id;?>"><?=$kota->name;?></option>
+            <option value="<?=$kota->id;?>"><?=$kota->name;?></option>
           </select>
         </div>
       </div>
@@ -99,7 +100,7 @@ $(document).ready(function(){
         <label class="control-label">Kecamatan</label>
         <div>
           <select class="form-control" name="kecamatan" id="kecamatan">
-            <option value="<?=$kecamatan->regency_id;?>"><?=$kecamatan->name;?></option>
+            <option value="<?=$kecamatan->id;?>"><?=$kecamatan->name;?></option>
           </select>
         </div>
       </div>
@@ -113,3 +114,7 @@ $(document).ready(function(){
   </div>
 </form>
 <?=br(35);?>
+
+    <script type="text/javascript" src="<?=base_url();?>assets/bootstrap/js/bootstrap.min.js;?>"></script>
+    <script type="text/javascript" src="<?=base_url('assets/bootstrap/js/bootstrap.js');?>"></script>
+    <script type="text/javascript" src="<?=base_url();?>assets/js/jquery-2.0.3.min.js"></script>
