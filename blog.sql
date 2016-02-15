@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 26, 2016 at 07:48 
+-- Generation Time: Feb 15, 2016 at 08:11 
 -- Server version: 5.6.25
 -- PHP Version: 5.5.27
 
@@ -32,17 +32,19 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `email` char(50) NOT NULL,
   `username` char(25) NOT NULL,
   `password` char(225) NOT NULL,
-  `level` enum('Admin','Marketing') NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+  `level` enum('Admin','Marketing','Operator') NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`no`, `nama`, `email`, `username`, `password`, `level`) VALUES
-(12, 'Aku', '', 'saya', '20c1a26a55039b30866c9d0aa51953ca', 'Marketing'),
-(19, 'Kamu', '', 'kamu', '48ec8af8df4bf4347d9b1de4ee7bb092', 'Marketing'),
-(20, 'Kita', '', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin');
+(12, 'aku', 'agungprabowo110696@yahoo.com', 'saya', '20c1a26a55039b30866c9d0aa51953ca', 'Marketing'),
+(19, 'Kamu', 'agungprabowo112@gmail.com', 'kamu', '48ec8af8df4bf4347d9b1de4ee7bb092', 'Marketing'),
+(20, 'Kita', 'agoeng79@gmail.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin'),
+(23, 'Nama User', 'Email@yahoo.com', 'Username', 'dc647eb65e6711e155375218212b3964', 'Admin'),
+(24, 'operator', 'operator@yahoo.com', 'operator', '4b583376b2767b923c3e1da60d10de59', 'Operator');
 
 -- --------------------------------------------------------
 
@@ -57,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `id_kota` char(5) NOT NULL,
   `id_kecamatan` char(10) NOT NULL,
   `nama_toko` char(50) NOT NULL,
+  `username` char(25) NOT NULL,
   `email` char(50) NOT NULL,
   `pass` text NOT NULL,
   `nm_penanggung_jawab` char(50) NOT NULL,
@@ -69,27 +72,32 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `tgl` char(50) NOT NULL,
   `status` char(5) NOT NULL,
   `aktif` char(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`id_customer`, `id_admin`, `id_provinsi`, `id_kota`, `id_kecamatan`, `nama_toko`, `email`, `pass`, `nm_penanggung_jawab`, `no_telp`, `kode_sales`, `nm_penerima`, `no_telp_penerima`, `kode_pos`, `alamat`, `tgl`, `status`, `aktif`) VALUES
-(20, '12', '33', '3374', '3374160', 'top tracker', 'agungprabowo112@gmail.com', 'e59cd3ce33a68f536c19fedb82a7936f', 'Prabowo', '809739293937', '4992', 'Prabowo', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'YES'),
-(21, '19', '', '', '', '', '', '', 'Coba Kode', '', '4318', '', '', '', '', '', 'YES', ''),
-(22, '19', '13', '', '', 'Tracker', 'toptracker05@yahoo.com', 'e59cd3ce33a68f536c19fedb82a7936f', 'Aku', '089640192828', '8023', 'Aku', '089640192828', '50245', 'jl. bukit barisan', '', 'YES', ''),
-(23, '12', '33', '', '', 'top', 'toptracker5@yahoo.com', '2c6147fee004b10a047a23ff6c5b7257', 'rosit', '0892794724929', '2972', 'rosit', '0892794724929', '50245', 'jl.bukit barisan', '', 'YES', ''),
-(24, '12', '11', '', '', 'top tracker', 'agungprabowo@gmail.com', '02e2ef2f75753892971438e143ecd819', 'agoeng', '809739293937', '4195', 'agoeng', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
-(25, '19', '11', '', '', 'top tracker', 'agoeng9@gmail.com', '4654ecfe0e8a68e49ee668175b252dfd', 'semangat', '809739293937', '7765', 'semangat', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
-(26, '12', '11', '', '', 'top tracker', 'agoeng79@gmail.com', '4654ecfe0e8a68e49ee668175b252dfd', 'semangat bro', '809739293937', '202', 'semangat bro', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
-(27, '19', '11', '', '', 'top tracker', 'agungprabowo1@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'semangat jon', '809739293937', '7402', 'semangat jon', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
-(28, '12', '19', '', '', 'top tracker', 'agungprabowo11@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'terus berjuang', '809739293937', '6944', 'terus berjuang', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'YES'),
-(29, '19', '33', '3374', '3374050', 'tracker top', 'email@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'coba', '0792729429429', '6065', 'coba', '0792729429429', '50245', 'jl.bendungan rt/rw 05/v kel.barusari', '', 'YES', 'NO'),
-(30, '12', '33', '3374', '3374160', 'nama toko', 'toptracker05@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'coba register', '089778899227', '4678', 'coba register', '089778899227', '50245', 'jl bendungan', '', 'YES', 'NO'),
-(31, '19', '32', '3273', '3273190', 'toko nama', 'toptracker05@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'lagi coba', '089383849390', '1069', 'lagi coba', '089383849390', '50245', 'jl jalan raya', '', 'YES', 'NO'),
-(33, '19', '', '', '', '', '', '', 'Contoh', '', '9428', '', '', '', '', '', 'NO', 'NO'),
-(34, '12', '', '', '', '', '', '', 'Example', '', '290', '', '', '', '', '', 'NO', 'NO');
+INSERT INTO `customer` (`id_customer`, `id_admin`, `id_provinsi`, `id_kota`, `id_kecamatan`, `nama_toko`, `username`, `email`, `pass`, `nm_penanggung_jawab`, `no_telp`, `kode_sales`, `nm_penerima`, `no_telp_penerima`, `kode_pos`, `alamat`, `tgl`, `status`, `aktif`) VALUES
+(20, '12', '33', '3374', '3374050', 'top tracker', 'agung', 'agungprabowo112@gmail.com', 'e59cd3ce33a68f536c19fedb82a7936f', 'Prabowo', '809739293937', '4992', 'Prabowo', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'YES'),
+(21, '19', '', '', '', '', '', '', '', 'Coba Kode', '', '4318', '', '', '', '', '', 'YES', ''),
+(22, '12', '33', '3374', '3374050', 'Tracker', '', 'toptracker05@yahoo.com', 'e59cd3ce33a68f536c19fedb82a7936f', 'Aku', '089640192828', '8023', 'Aku', '089640192828', '50245', 'jl. bukit barisan', '', 'YES', ''),
+(23, '12', '33', '', '', 'top', '', 'toptracker5@yahoo.com', '2c6147fee004b10a047a23ff6c5b7257', 'rosit', '0892794724929', '2972', 'rosit', '0892794724929', '50245', 'jl.bukit barisan', '', 'YES', ''),
+(24, '12', '11', '', '', 'top tracker', '', 'agungprabowo@gmail.com', '02e2ef2f75753892971438e143ecd819', 'agoeng', '809739293937', '4195', 'agoeng', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(25, '19', '11', '', '', 'top tracker', '', 'agoeng9@gmail.com', '4654ecfe0e8a68e49ee668175b252dfd', 'semangat', '809739293937', '7765', 'semangat', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(26, '12', '11', '', '', 'top tracker', '', 'agoeng79@gmail.com', '4654ecfe0e8a68e49ee668175b252dfd', 'semangat bro', '809739293937', '202', 'semangat bro', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(27, '19', '11', '', '', 'top tracker', '', 'agungprabowo1@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'semangat jon', '809739293937', '7402', 'semangat jon', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'NO'),
+(28, '12', '19', '', '', 'top tracker', '', 'agungprabowo11@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'terus berjuang', '809739293937', '6944', 'terus berjuang', '809739293937', '50245', 'jl.bukit barisan', '', 'YES', 'YES'),
+(29, '19', '33', '3374', '3374050', 'tracker top', 'coba', 'email@yahoo.com', 'c3ec0f7b054e729c5a716c8125839829', 'coba', '0792729429429', '6065', 'coba', '0792729429429', '50245', 'jl.bendungan rt/rw 05/v kel.barusari', '', 'YES', 'NO'),
+(30, '12', '33', '3374', '3374160', 'nama toko', '', 'toptracker05@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'coba register', '089778899227', '4678', 'coba register', '089778899227', '50245', 'jl bendungan', '', 'YES', 'NO'),
+(31, '19', '32', '3273', '3273190', 'toko nama', '', 'toptracker05@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'lagi coba', '089383849390', '1069', 'lagi coba', '089383849390', '50245', 'jl jalan raya', '', 'YES', 'NO'),
+(33, '19', '', '', '', '', '', '', '', 'Contoh', '', '9428', '', '', '', '', '', 'NO', 'NO'),
+(34, '12', '33', '3374', '3374160', 'Toko Bagus', '', 'agungprabowo110696@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'Example', '089383849390', '290', 'Example', '089383849390', '50245', 'jl raya', '1454415468', 'YES', 'YES'),
+(35, '12', '33', '3374', '3374160', 'Toko Sae', '', 'agungprabowo110696@yahoo.com', '0cc175b9c0f1b6a831c399e269772661', 'Example1', '089383849390', '579', 'Example1', '089383849390', '50245', 'jl jalan raya', '1454415866', 'YES', 'NO'),
+(36, '12', '33', '3374', '3374050', 'Toko Good', '', '', '4124bc0a9335c27f086f24ba207a4912', 'Example2', '089383849390', '2095', 'Example2', '089383849390', '50245', 'jl jalan raya', '1454416081', 'YES', 'NO'),
+(37, '12', '11', '1101', '1101010', 'Toko Good', 'saya', 'agungprabowo112@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'Example3', '089383849390', '6901', 'Example3', '089383849390', '50245', 'jl jalan raya', '1454443144', 'YES', 'NO'),
+(38, '12', '11', '1101', '1101010', 'Toko Good', 'w', 'agungprabowo112@gmail.com', '0cc175b9c0f1b6a831c399e269772661', 'uhui', '089383849390', '9072', 'uhui', '089383849390', '50245', 'jl jalan raya', '1454442918', 'YES', 'NO'),
+(39, '12', '', '', '', '', '', '', '', 'komeng', '', '224', '', '', '', '', '', 'NO', 'NO');
 
 -- --------------------------------------------------------
 
@@ -7290,8 +7298,11 @@ INSERT INTO `komentar` (`id_komentar`, `id_produk`, `nama`, `email`, `isi_koment
 --
 
 CREATE TABLE IF NOT EXISTS `pesanan` (
-  `id_order` int(10) NOT NULL,
+  `id_order` int(100) NOT NULL,
   `id_admin` char(50) NOT NULL,
+  `id_provinsi` char(10) NOT NULL,
+  `id_kota` char(10) NOT NULL,
+  `id_kecamatan` char(15) NOT NULL,
   `kode_sales` char(10) NOT NULL,
   `id_pesanan` char(10) NOT NULL,
   `nm_produk` char(50) NOT NULL,
@@ -7300,23 +7311,43 @@ CREATE TABLE IF NOT EXISTS `pesanan` (
   `nama_toko` char(50) NOT NULL,
   `nm_penerima` char(50) NOT NULL,
   `alamat` text NOT NULL,
+  `kota` char(50) NOT NULL,
   `kode_pos` char(10) NOT NULL,
   `status` char(10) NOT NULL,
   `no_telp` char(25) NOT NULL,
   `total` char(50) NOT NULL,
   `tgl_beli` char(30) NOT NULL,
+  `catatan` text NOT NULL,
+  `kurir` char(100) NOT NULL,
+  `layanan` char(50) NOT NULL,
+  `biaya_kirim` char(100) NOT NULL,
   `resi` char(30) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pesanan`
 --
 
-INSERT INTO `pesanan` (`id_order`, `id_admin`, `kode_sales`, `id_pesanan`, `nm_produk`, `harga`, `qty`, `nama_toko`, `nm_penerima`, `alamat`, `kode_pos`, `status`, `no_telp`, `total`, `tgl_beli`, `resi`) VALUES
-(81, '12', '4992', '1971', 'Lorem Ipsum', '2500000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2500000', '1453806010', ''),
-(82, '12', '4992', '1971', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2000000', '1453806010', ''),
-(83, '12', '4992', '6241', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2000000', '1453806936', ''),
-(84, '12', '4992', '6241', 'Lorem Ipsum', '2500000', '1', '20', 'Prabowo', 'jl.bukit barisan', '50245', 'Tertunda', '809739293937', '2500000', '1453806936', '');
+INSERT INTO `pesanan` (`id_order`, `id_admin`, `id_provinsi`, `id_kota`, `id_kecamatan`, `kode_sales`, `id_pesanan`, `nm_produk`, `harga`, `qty`, `nama_toko`, `nm_penerima`, `alamat`, `kota`, `kode_pos`, `status`, `no_telp`, `total`, `tgl_beli`, `catatan`, `kurir`, `layanan`, `biaya_kirim`, `resi`) VALUES
+(137, '12', '33', '3374', '3374010', '4992', '1713', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '', '50245', 'Tertunda', '809739293937', '2000000', '1454676627', '', '', '', '', ''),
+(140, '12', '33', '3374', '3374050', '4992', '9121', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '', '50245', 'Tertunda', '809739293937', '2000000', '1454678494', '', '', '', '', ''),
+(141, '12', '11', '1110061', '1110', '4992', '7894', 'pp', '1000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '', '50245', 'Tertunda', '809739293937', '1000000', '1454678687', '', '', '', '', ''),
+(142, '12', '34', '3402', '3402140', '4992', '8206', 'Lorem Ipsum', '2500000', '1', '20', 'Prabowo', 'jl.bukit barisan', '', '50245', 'Tertunda', '809739293937', '2500000', '1454678752', '', '', '', '', ''),
+(143, '12', '33', '3374', '3374050', '4992', '7670', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '20', 'Prabowo', 'jl.bukit barisan', '', '50245', 'Tertunda', '809739293937', '2000000', '1454679331', '', '', '', '', ''),
+(144, '19', '33', '3374', '3374050', '6065', '5489', 'sss', '1380710', '13', '29', 'coba lagi', 'jl.bendungan rt/rw 05/v kel.barusari', '', '50245', 'Tertunda', '0792729429429', '17949230', '1455025103', '', '', '', '', ''),
+(145, '19', '33', '3374', '3374050', '6065', '5489', 'aha', '179313', '19', '29', 'coba lagi', 'jl.bendungan rt/rw 05/v kel.barusari', '', '50245', 'Tertunda', '0792729429429', '3406947', '1455025103', '', '', '', '', ''),
+(146, '19', '33', '3374', '3374050', '6065', '4269', 'pp', '1000000', '19', '29', 'coba lagi aja deh ?', 'jl.bendungan rt/rw 05/v kel.barusari', '', '50245', 'Tertunda', '0792729429429', '19000000', '1455026209', '', '', '', '', ''),
+(147, '19', '33', '3374', '3374050', '6065', '4269', 'asa', '381093', '31', '29', 'coba lagi aja deh ?', 'jl.bendungan rt/rw 05/v kel.barusari', '', '50245', 'Tertunda', '0792729429429', '11813883', '1455026209', '', '', '', '', ''),
+(148, '19', '33', '3374', '3374050', '6065', '8318', 'CONCOX - ET200', '700000', '5', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', '', '50245', 'Tertunda', '0792729429429', '3500000', '1455109060', '', '', '', '', ''),
+(149, '19', '33', '3374', '3374050', '6065', '3548', 'Lorem Ipsum', '2500000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', '', '50245', 'Tertunda', '0792729429429', '2500000', '1455109523', 'saya transfer atas nama agung', 'JNE YES', '', '', ''),
+(150, '19', '0', '0', '0', '6065', '8511', 'CONCOX - ET200', '700000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', 'Jakarta Pusat', '50245', 'Tertunda', '0792729429429', '700000', '1455539292', 'saya transfer atas nama agung prabowo', 'jne', '', '', ''),
+(151, '19', '0', '0', '0', '6065', '5448', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', 'Yogyakarta', '50245', 'Tertunda', '0792729429429', '2000000', '1455539696', 'saya transfer atas nama aku', 'TIKI', 'ONS', '11000', ''),
+(152, '19', '0', '0', '0', '6065', '1434', 'GPS Tracker Meitrack - MVT600', '2000000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', 'Bandung', '50245', 'Tertunda', '0792729429429', '2000000', '1455539849', 'yes 30.000', 'JNE', 'YES', '420000', ''),
+(153, '19', '0', '0', '0', '6065', '5205', 'Lorem Ipsum', '2500000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', 'Yogyakarta', '50245', 'Tertunda', '0792729429429', '2500000', '1455541645', 'yes 25.000', 'JNE', 'YES', '25000', ''),
+(154, '19', '0', '0', '0', '6065', '9496', 'Lorem Ipsum', '2500000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', 'Yogyakarta', '50245', 'Tertunda', '0792729429429', '2500000', '1455541843', 'OKEOKE,10000  Rp. 10.000\nREGREG,11000  Rp. 11.000\nYESYES,25000  Rp. 25.000\nSPSSPS,315000  Rp. 315.000', 'JNE', 'OKE', '10000', ''),
+(155, '19', '0', '0', '0', '6065', '8698', 'Meitrack - MVT800', '1500000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', 'Jakarta Selatan', '50245', 'Tertunda', '0792729429429', '1500000', '1455541921', 'reg 15.000', 'JNE', 'REG', '15000', ''),
+(156, '19', '0', '0', '0', '6065', '4920', 'CONCOX - ET200', '700000', '2', '29', 'coba lagi bro', 'jl.bendungan rt/rw 05/v kel.barusari', 'Salatiga', '50245', 'Tertunda', '0792729429429', '1400000', '1455542016', 'ctc 11.000', 'JNE', 'CTC', '11000', ''),
+(157, '19', '0', '0', '0', '6065', '9486', 'Meitrack - MVT800', '1500000', '1', '29', 'coba', 'jl.bendungan rt/rw 05/v kel.barusari', 'Jayapura', '50245', 'Tertunda', '0792729429429', '1500000', '1455543873', 'tds 79.000', 'tiki', 'TDS', '79000', '');
 
 -- --------------------------------------------------------
 
@@ -7341,15 +7372,15 @@ CREATE TABLE IF NOT EXISTS `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `judul`, `harga`, `stok`, `isi`, `gambar`, `tanggal`, `aktif`) VALUES
-(1, '2', 'Meitrack - MVT800', '1500000', '49', '<p>\n	<span style="font-size:16px;"><strong>Fungsi Produk :</strong></span><br />\n	<br />\n	<span style="font-size:14px;">- U-blox 6 GPS dan Quad Band GSM 850/900/1800/1900MHz<br />\n	- GPS + Dual GSM Modul Tracking<br />\n	- SMS / TCP / UDP (MEITRACK dan Meiligao Protokol kompatibel<br />\n	- Tahan Air (IP65)<br />\n	- Melacak pada permintaan<br />\n	- Melacak Waktu / Jarak Interval<br />\n	- Pelacakan Pada Ponsel<br />\n	- Mendengarkan atau Dua arah Audio (Opsional)<br />\n	- Internal Flash Memory (8M)<br />\n	- Sensor Gerak<br />\n	- Pencadangan Baterai internal 850mAh<br />\n	- SOS Alarm<br />\n	- Geo-fence Alarm (Pembatasan Jarak Tempuh)<br />\n	- GPS Alarm Pada Tempat Tertentu<br />\n	- Alarm jika Baterai Lemah<br />\n	- Alarm Jika Melebihi Batas Kecepatan yang ditentukan<br />\n	- Tow Alarm<br />\n	- Antena GPS<br />\n	- Alarm Jika Daya Pada Mesin Dipotong /memotong mesin(Mesin imobilisasi)<br />\n	- Laporan jarak tempuh<br />\n	- 4 Digital Input (1 Negatif, 1 Positif dan 2 dapat diatur melalui perangkat lunak)<br />\n	- 2 output<br />\n	- 1 Analog Input Bahan Bakar Pendeteksian (Opsional)<br />\n	- 1 Input untuk Pulse Pendeteksian Kecepatan<br />\n	- 1 Output untuk Buzzer Alarm (Opsional)<br />\n	- 1 Input untuk Digital Temperature Sensor (Opsional)<br />\n	- Kontrol Jarak Jauh nirkabel (Opsional)<br />\n	- Free Web Tracking</span></p>\n', '24f8c2c966fd1ef7a7e4d24e6a4b61a8.png', 0, 'Y'),
-(3, '1', 'pp', '1000000', '50', '<p>\n	wqwqw</p>\n', 'cd5d38216a592fe8f8b3d301b678f627.png', 1443820536, 'Y'),
-(4, '1', 'sss', '1380710', '30', '<p>\n	sss</p>\n', '361657ce52cba69d123288bd0ee5c7a3.png', 1443964854, 'Y'),
-(5, '1', 'aha', '179313', '20', '<p>\n	aha</p>\n', '9d592a97586f2f8ef3856a7fb25cc0cf.png', 1443965171, 'Y'),
-(6, '1', 'asa', '381093', '90', '<p>\n	asa</p>\n', 'e593a00149d745f6d27ba3338a302d5c.png', 1443965949, 'Y'),
+(1, '2', 'Meitrack - MVT800', '1500000', '7', '<p>\n	<span style="font-size:16px;"><strong><img alt="" src="/app-toptracker/assets/kcfinder/upload/images/vehicle_blackbox_dvr__perekam_mbil_pribadi_anda_2570871_1440234862.jpg" style="width: 512px; height: 512px;" />Fungsi Produk :</strong></span><br />\n	<br />\n	<span style="font-size:14px;">- U-blox 6 GPS dan Quad Band GSM 850/900/1800/1900MHz<br />\n	- GPS + Dual GSM Modul Tracking<br />\n	- SMS / TCP / UDP (MEITRACK dan Meiligao Protokol kompatibel<br />\n	- Tahan Air (IP65)<br />\n	- Melacak pada permintaan<br />\n	- Melacak Waktu / Jarak Interval<br />\n	- Pelacakan Pada Ponsel<br />\n	- Mendengarkan atau Dua arah Audio (Opsional)<br />\n	- Internal Flash Memory (8M)<br />\n	- Sensor Gerak<br />\n	- Pencadangan Baterai internal 850mAh<br />\n	- SOS Alarm<br />\n	- Geo-fence Alarm (Pembatasan Jarak Tempuh)<br />\n	- GPS Alarm Pada Tempat Tertentu<br />\n	- Alarm jika Baterai Lemah<br />\n	- Alarm Jika Melebihi Batas Kecepatan yang ditentukan<br />\n	- Tow Alarm<br />\n	- Antena GPS<br />\n	- Alarm Jika Daya Pada Mesin Dipotong /memotong mesin(Mesin imobilisasi)<br />\n	- Laporan jarak tempuh<br />\n	- 4 Digital Input (1 Negatif, 1 Positif dan 2 dapat diatur melalui perangkat lunak)<br />\n	- 2 output<br />\n	- 1 Analog Input Bahan Bakar Pendeteksian (Opsional)<br />\n	- 1 Input untuk Pulse Pendeteksian Kecepatan<br />\n	- 1 Output untuk Buzzer Alarm (Opsional)<br />\n	- 1 Input untuk Digital Temperature Sensor (Opsional)<br />\n	- Kontrol Jarak Jauh nirkabel (Opsional)<br />\n	- Free Web Tracking</span></p>\n', '24f8c2c966fd1ef7a7e4d24e6a4b61a8.png', 0, 'Y'),
+(3, '1', 'pp', '1000000', '30', '<p>\n	wqwqw</p>\n', 'cd5d38216a592fe8f8b3d301b678f627.png', 1443820536, 'Y'),
+(4, '1', 'sss', '1380710', '17', '<p>\n	sss</p>\n', '361657ce52cba69d123288bd0ee5c7a3.png', 1443964854, 'Y'),
+(5, '1', 'aha', '179313', '1', '<p>\n	aha</p>\n', '9d592a97586f2f8ef3856a7fb25cc0cf.png', 1443965171, 'Y'),
+(6, '1', 'asa', '381093', '59', '<p>\n	asa</p>\n', 'e593a00149d745f6d27ba3338a302d5c.png', 1443965949, 'Y'),
 (8, '1', 'coba kategori', '31001030', '15', '<p>\n	The first parameter can contain any segments you wish appended to the URL. As with the <dfn>site_url()</dfn> function above, segments can be a string or an array.</p>\n<p>\n	<strong>Note:</strong>&nbsp; If you are building links that are internal to your application do not include the base URL (http://...). This will be added automatically from the information specified in your config file. Include only the URI segments you wish appended to the URL.</p>\n<p>\n	The second segment is the text you would like the link to say. If you leave it blank, the URL will be used.</p>\n<p>\n	The third parameter can contain a list of attributes you would like added to the link. The attributes can be a simple string or an associative array.</p>\n<p>\n	Here are some examples:</p>\n', '7c5d51c801fe6bd372012ce386d15cf0.png', 1444424646, 'Y'),
-(9, '1', 'CONCOX - ET200', '700000', '49', '<p>\n	<span style="font-size:14px;"><strong>Fitur ET200 :</strong></span><br />\n	<br />\n	Cek posisi via sms dan webtracking<br />\n	Mematikan dan menghidupkan mesin<br />\n	Laporan mesin mati/hidup (sms dan Web)<br />\n	Laporan SOS bila alat di sabotase<br />\n	Riwayat perjalanan 30hari<br />\n	Lihat kecepatan<br />\n	Pembatasan kecepatan (speed limit)<br />\n	Pembatasan area (geofence)<br />\n	Cek pulsa<br />\n	Backup Baterai<br />\n	Free Server (gps-trace)<br />\n	Water resistance (Tahan cipratan air dan debu).</p>\n', 'ec633e04ed31c7f5515052679cc28e7c.jpg', 1444468081, 'Y'),
-(10, '2', 'GPS Tracker Meitrack - MVT600', '2000000', '47', '<p>\n	Produk ini merupakan produk gps tracker dengana fasiltas paling lengkap dan fitur yang melimpah. Berikut fitur dan kelebihan dari gps tracker ini:</p>\n<ul>\n	<li>\n		SiRF III GPS and Quad Band GSM 850/900/1800/1900 Mhz</li>\n	<li>\n		Support AGPS (with GSM Base Station ID)</li>\n	<li>\n		Track by SMS/GPRS (Meitrack Protocol)</li>\n	<li>\n		Track on Demand</li>\n	<li>\n		Track by Time Interval</li>\n	<li>\n		Track by Distance Interval</li>\n	<li>\n		Track on Mobile Phone</li>\n	<li>\n		Listen-in or two-way audio (optional)</li>\n	<li>\n		Internal Flash Memory (8MB)</li>\n	<li>\n		Inbuilt Accelerating Sensor</li>\n	<li>\n		Inbuilt Motion Sensor</li>\n	<li>\n		Internal Backup Battery</li>\n	<li>\n		SOS Alarm</li>\n	<li>\n		Geo-fence Alarm</li>\n	<li>\n		GPS Blind Area Alarm</li>\n	<li>\n		Low Battery Alarm</li>\n	<li>\n		Speeding Alarm</li>\n	<li>\n		Tow Alarm</li>\n	<li>\n		GPS Antenna Cut Alarm</li>\n	<li>\n		External Power Cut Alarm</li>\n	<li>\n		Mileage Report</li>\n	<li>\n		Engine Cut (Engine immobilization)</li>\n	<li>\n		Inbuilt Super Magnet (optional)</li>\n	<li>\n		Handset Phone (optional)</li>\n	<li>\n		Camera (optional)</li>\n	<li>\n		Micro SD Card Memory for Storing Pictures (Optional)</li>\n	<li>\n		RFID Reader (optional)</li>\n	<li>\n		LED Display (optional)</li>\n	<li>\n		LCD Display (optional)</li>\n	<li>\n		3 Digital Inputs</li>\n	<li>\n		3 Outputs</li>\n	<li>\n		3 Analog Inputs</li>\n</ul>\n<p>\n	Unit GPS Tracker MVT 600 sangat cocok digunakan untuk Taksi, Truk pengangkut, Armada security (keamanan) , Trailer, Armada pengiriman barang berharga , maupun armada Bus.</p>\n<p>\n	<a href="http://i2.wp.com/gpstrackercenter.com/wp-content/uploads/2013/12/assesoris-mvt600.png"><img alt="Accessories MVT 600" class="size-medium wp-image-99 " height="189" src="http://i2.wp.com/gpstrackercenter.com/wp-content/uploads/2013/12/assesoris-mvt600.png?resize=300%2C189" width="300" /></a></p>\n', 'c4d2fded099bc4fbe59360c3b50c0037.png', 1450876995, 'Y'),
-(11, '1', 'Lorem Ipsum', '2500000', '-1', '<p style="margin: 0px 0px 10px; padding: 0px; border: 0px; outline: 0px; font-size: 13px; vertical-align: baseline; color: rgb(0, 0, 0); font-family: arial; background: transparent;">\n	Sociis pid sociis rhoncus hac ac auctor enim a etiam velit phasellus? Sit in a, eros phasellus adipiscing et in et magna ac phasellus, nisi sed, et diam? Urna natoque tincidunt vut! Penatibus! Ridiculus aliquam! Rhoncus! Pellentesque augue placerat, sed duis magnis! Ridiculus, augue odio, mid tortor aliquam, nisi nec porttitor arcu facilisis phasellus urna, cursus elementum et, urna phasellus. Quis elit mauris vel lacus nec integer tristique aliquam, velit in tempor. Eros nisi et tristique a. Nisi? Magna ac! Amet vut amet nisi! Turpis habitasse montes sagittis, mattis ultrices. Dictumst aliquet pulvinar urna et nascetur, sed, quis, nisi placerat porta duis! Tincidunt sit, nascetur scelerisque vut eros ac scelerisque lectus? Est habitasse facilisis, rhoncus in, penatibus vut in aliquam in nec tempor placerat habitasse. Amet? Pellentesque lundium! Nec dignissim cursus ut mauris turpis enim. Aenean ac egestas aliquet porttitor. Eu dapibus nunc pid, natoque! Platea mattis sit elementum placerat, ac porta lorem proin in auctor. Egestas nec est diam dis lorem, augue ultricies amet elit, sagittis ultricies a rhoncus cum porta porta scelerisque! Scelerisque nec sagittis, diam arcu ut. Ultricies a, augue dignissim augue? Ut auctor? Augue tortor? Et augue integer? Sed integer magnis cum in, non etiam porttitor.</p>\n<p style="margin: 0px 0px 10px; padding: 0px; border: 0px; outline: 0px; font-size: 13px; vertical-align: baseline; color: rgb(0, 0, 0); font-family: arial; background: transparent;">\n	Ac, tortor vel, tortor! In rhoncus habitasse et, dolor placerat amet? Magna porttitor a amet. Velit. Platea, sociis tortor, duis nunc in facilisis, odio in pulvinar ultricies et egestas in cum lectus est. Lectus, elementum? Scelerisque magna arcu arcu ultricies velit, tincidunt. Elementum lorem turpis. Amet scelerisque, nec natoque placerat vel, risus ac egestas dignissim turpis pulvinar nec a. Nisi lundium magnis tortor et elit et nunc ac urna! In etiam, urna eu facilisis. Montes adipiscing lorem augue et tempor lorem facilisis dignissim ut elementum duis ut, rhoncus, quis, tempor cras penatibus turpis? Placerat amet, non elementum turpis, nisi? Tincidunt pulvinar, vel cras nec lacus mattis integer porta, mid sed in porta nisi tincidunt turpis dolor amet. Eros mid tristique tempor? Tempor, et! Risus ac in, proin pulvinar in, massa in dictumst, turpis dolor enim. Phasellus elit porttitor cursus, mauris? In lacus, adipiscing aenean? Auctor amet nisi habitasse ac. Platea, ac. Porta tristique augue parturient proin, amet lundium amet. Ultrices augue placerat natoque! Magna? A, in purus, tristique porttitor ultrices? Rhoncus pulvinar sit etiam proin pulvinar duis! Ut vel dignissim pulvinar elementum sed? Mus? Vel elit! Lacus tortor ac? Nisi, phasellus. Ut a facilisis sagittis vut turpis adipiscing in.</p>\n', '22ed71baac8fad159961c9e0ac7505b2.png', 1453612028, 'Y');
+(9, '1', 'CONCOX - ET200', '700000', '18', '<p>\n	<span style="font-size:14px;"><strong>Fitur ET200 :</strong></span><br />\n	<br />\n	Cek posisi via sms dan webtracking<br />\n	Mematikan dan menghidupkan mesin<br />\n	Laporan mesin mati/hidup (sms dan Web)<br />\n	Laporan SOS bila alat di sabotase<br />\n	Riwayat perjalanan 30hari<br />\n	Lihat kecepatan<br />\n	Pembatasan kecepatan (speed limit)<br />\n	Pembatasan area (geofence)<br />\n	Cek pulsa<br />\n	Backup Baterai<br />\n	Free Server (gps-trace)<br />\n	Water resistance (Tahan cipratan air dan debu).</p>\n', 'ec633e04ed31c7f5515052679cc28e7c.jpg', 1444468081, 'Y'),
+(10, '2', 'GPS Tracker Meitrack - MVT600', '2000000', '10', '<p>\n	<img alt="" src="/app-toptracker/assets/kcfinder/upload/images/vehicle_blackbox_dvr__perekam_mbil_pribadi_anda_2570871_1440234862.jpg" style="width: 512px; height: 512px;" /></p>\n<p>\n	&nbsp;</p>\n<p>\n	Produk ini merupakan produk gps tracker dengana fasiltas paling lengkap dan fitur yang melimpah. Berikut fitur dan kelebihan dari gps tracker ini:</p>\n<ul>\n	<li>\n		SiRF III GPS and Quad Band GSM 850/900/1800/1900 Mhz</li>\n	<li>\n		Support AGPS (with GSM Base Station ID)</li>\n	<li>\n		Track by SMS/GPRS (Meitrack Protocol)</li>\n	<li>\n		Track on Demand</li>\n	<li>\n		Track by Time Interval</li>\n	<li>\n		Track by Distance Interval</li>\n	<li>\n		Track on Mobile Phone</li>\n	<li>\n		Listen-in or two-way audio (optional)</li>\n	<li>\n		Internal Flash Memory (8MB)</li>\n	<li>\n		Inbuilt Accelerating Sensor</li>\n	<li>\n		Inbuilt Motion Sensor</li>\n	<li>\n		Internal Backup Battery</li>\n	<li>\n		SOS Alarm</li>\n	<li>\n		Geo-fence Alarm</li>\n	<li>\n		GPS Blind Area Alarm</li>\n	<li>\n		Low Battery Alarm</li>\n	<li>\n		Speeding Alarm</li>\n	<li>\n		Tow Alarm</li>\n	<li>\n		GPS Antenna Cut Alarm</li>\n	<li>\n		External Power Cut Alarm</li>\n	<li>\n		Mileage Report</li>\n	<li>\n		Engine Cut (Engine immobilization)</li>\n	<li>\n		Inbuilt Super Magnet (optional)</li>\n	<li>\n		Handset Phone (optional)</li>\n	<li>\n		Camera (optional)</li>\n	<li>\n		Micro SD Card Memory for Storing Pictures (Optional)</li>\n	<li>\n		RFID Reader (optional)</li>\n	<li>\n		LED Display (optional)</li>\n	<li>\n		LCD Display (optional)</li>\n	<li>\n		3 Digital Inputs</li>\n	<li>\n		3 Outputs</li>\n	<li>\n		3 Analog Inputs</li>\n</ul>\n<p>\n	Unit GPS Tracker MVT 600 sangat cocok digunakan untuk Taksi, Truk pengangkut, Armada security (keamanan) , Trailer, Armada pengiriman barang berharga , maupun armada Bus.</p>\n<p>\n	<a href="http://i2.wp.com/gpstrackercenter.com/wp-content/uploads/2013/12/assesoris-mvt600.png"><img alt="Accessories MVT 600" class="size-medium wp-image-99 " height="189" src="http://i2.wp.com/gpstrackercenter.com/wp-content/uploads/2013/12/assesoris-mvt600.png?resize=300%2C189" width="300" /></a></p>\n', 'c4d2fded099bc4fbe59360c3b50c0037.png', 1450876995, 'Y'),
+(11, '1', 'Lorem Ipsum', '2500000', '0', '<p style="margin: 0px 0px 10px; padding: 0px; border: 0px; outline: 0px; font-size: 13px; vertical-align: baseline; color: rgb(0, 0, 0); font-family: arial; background: transparent;">\n	<img alt="" src="/app-toptracker/assets/kcfinder/upload/images/vehicle_blackbox_dvr__perekam_mbil_pribadi_anda_2570871_1440234862.jpg" style="width: 512px; height: 512px;" />Sociis pid sociis rhoncus hac ac auctor enim a etiam velit phasellus? Sit in a, eros phasellus adipiscing et in et magna ac phasellus, nisi sed, et diam? Urna natoque tincidunt vut! Penatibus! Ridiculus aliquam! Rhoncus! Pellentesque augue placerat, sed duis magnis! Ridiculus, augue odio, mid tortor aliquam, nisi nec porttitor arcu facilisis phasellus urna, cursus elementum et, urna phasellus. Quis elit mauris vel lacus nec integer tristique aliquam, velit in tempor. Eros nisi et tristique a. Nisi? Magna ac! Amet vut amet nisi! Turpis habitasse montes sagittis, mattis ultrices. Dictumst aliquet pulvinar urna et nascetur, sed, quis, nisi placerat porta duis! Tincidunt sit, nascetur scelerisque vut eros ac scelerisque lectus? Est habitasse facilisis, rhoncus in, penatibus vut in aliquam in nec tempor placerat habitasse. Amet? Pellentesque lundium! Nec dignissim cursus ut mauris turpis enim. Aenean ac egestas aliquet porttitor. Eu dapibus nunc pid, natoque! Platea mattis sit elementum placerat, ac porta lorem proin in auctor. Egestas nec est diam dis lorem, augue ultricies amet elit, sagittis ultricies a rhoncus cum porta porta scelerisque! Scelerisque nec sagittis, diam arcu ut. Ultricies a, augue dignissim augue? Ut auctor? Augue tortor? Et augue integer? Sed integer magnis cum in, non etiam porttitor.</p>\n<p style="margin: 0px 0px 10px; padding: 0px; border: 0px; outline: 0px; font-size: 13px; vertical-align: baseline; color: rgb(0, 0, 0); font-family: arial; background: transparent;">\n	Ac, tortor vel, tortor! In rhoncus habitasse et, dolor placerat amet? Magna porttitor a amet. Velit. Platea, sociis tortor, duis nunc in facilisis, odio in pulvinar ultricies et egestas in cum lectus est. Lectus, elementum? Scelerisque magna arcu arcu ultricies velit, tincidunt. Elementum lorem turpis. Amet scelerisque, nec natoque placerat vel, risus ac egestas dignissim turpis pulvinar nec a. Nisi lundium magnis tortor et elit et nunc ac urna! In etiam, urna eu facilisis. Montes adipiscing lorem augue et tempor lorem facilisis dignissim ut elementum duis ut, rhoncus, quis, tempor cras penatibus turpis? Placerat amet, non elementum turpis, nisi? Tincidunt pulvinar, vel cras nec lacus mattis integer porta, mid sed in porta nisi tincidunt turpis dolor amet. Eros mid tristique tempor? Tempor, et! Risus ac in, proin pulvinar in, massa in dictumst, turpis dolor enim. Phasellus elit porttitor cursus, mauris? In lacus, adipiscing aenean? Auctor amet nisi habitasse ac. Platea, ac. Porta tristique augue parturient proin, amet lundium amet. Ultrices augue placerat natoque! Magna? A, in purus, tristique porttitor ultrices? Rhoncus pulvinar sit etiam proin pulvinar duis! Ut vel dignissim pulvinar elementum sed? Mus? Vel elit! Lacus tortor ac? Nisi, phasellus. Ut a facilisis sagittis vut turpis adipiscing in.</p>\n', '22ed71baac8fad159961c9e0ac7505b2.png', 1453612028, 'Y');
 
 -- --------------------------------------------------------
 
@@ -89979,12 +90010,12 @@ ALTER TABLE `villages`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `no` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `no` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id_customer` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+  MODIFY `id_customer` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `customer_kirim`
 --
@@ -90009,7 +90040,7 @@ ALTER TABLE `komentar`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_order` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
+  MODIFY `id_order` int(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=158;
 --
 -- AUTO_INCREMENT for table `produk`
 --

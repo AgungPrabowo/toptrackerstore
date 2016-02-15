@@ -9,10 +9,10 @@ class Order extends CI_Controller {
 		$key   					= $this->session->userdata('email');
 		$data['kode_sales']		= $this->model_customer->getdata_uri($key);
 		$data['key']			= $data['kode_sales']->kode_sales;
-		$data['provinsi'] 		= $this->model_wilayah->getdata_prov_row($query->id_provinsi);
-		$data['kota'] 			= $this->model_wilayah->getdata_kota_row($query->id_kota);
-		$data['kecamatan'] 		= $this->model_wilayah->getdata_kec_row($query->id_kecamatan);
-		$data['id_provinsi']	= $this->db->get('provinces');
+		// $data['provinsi'] 		= $this->model_wilayah->getdata_prov_row($query->id_provinsi);
+		// $data['kota'] 			= $this->model_wilayah->getdata_kota_row($query->id_kota);
+		// $data['kecamatan'] 		= $this->model_wilayah->getdata_kec_row($query->id_kecamatan);
+		// $data['id_provinsi']	= $this->db->get('provinces');
 		$data['nm_penerima']	= $query->nm_penerima;
 		$data['no_telp']		= $query->no_telp;
 		$data['alamat']			= $query->alamat;
@@ -23,6 +23,40 @@ class Order extends CI_Controller {
 		$data['link']			= '<h1>Alamat Pengiriman Anda</h1>';
 
 		$this->load->view('user/konfirmasi_order', $data);
+	}
+
+	public function result_ongkir($origin,$destination,$courier)
+	{
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		 CURLOPT_URL => "http://rajaongkir.com/api/starter/cost",
+		 CURLOPT_RETURNTRANSFER => true,
+		 CURLOPT_ENCODING => "",
+		 CURLOPT_MAXREDIRS => 10,
+		 CURLOPT_TIMEOUT => 30,
+		 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		 // CURLOPT_CUSTOMREQUEST => "POST",
+		 CURLOPT_POSTFIELDS => "origin=$origin&destination=$destination&weight=1000&courier=$courier",
+		 // CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
+		 CURLOPT_HTTPHEADER => array(
+		 "key: 2f50e6a7c051609f97d7bf9174188064"
+		 ),
+		));
+		 
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		 
+		curl_close($curl);
+		 
+		if ($err) {
+		 echo "cURL Error #:" . $err;
+		} else {
+		 
+		 $hasil['data'] = json_decode($response, true);
+		}
+
+		$this->load->view('user/result_ongkir',$hasil);
 	}
 
 	public function getkota($key)
@@ -143,6 +177,11 @@ class Order extends CI_Controller {
 		$query					= $this->model_customer->getdata($key);
 		// belum selesai (ambil email admin)
 		// $email_admin			= $this->model_user->getdata_email('admin');
+
+		//menggabungkan layanan dan biaya kirim
+		//dan dipecah
+		$layananDanBiaya		= $this->input->post('layanan');
+		$pecah					= explode(',',$layananDanBiaya);
 		$data['kode_sales']		= $this->input->post('kode_sales');
 		$data['nm_penerima']	= $this->input->post('nm_penerima');
 		$data['no_telp']		= $this->input->post('no_telp');
@@ -153,6 +192,11 @@ class Order extends CI_Controller {
 		$data['id_provinsi']	= $this->input->post('provinsi');
 		$data['id_kota']		= $this->input->post('kota');
 		$data['id_kecamatan']	= $this->input->post('kecamatan');
+		$data['catatan']		= $this->input->post('catatan');
+		$data['kurir']			= $this->input->post('courier');
+		$data['kota']			= $this->input->post('destination');
+		$data['layanan']		= $pecah[0];
+		$data['biaya_kirim']	= $pecah[1];
 		$data['nama_toko']		= $query->id_customer;
 		$data['tgl_beli']		= time()+3600*7;
 		$data['id_pesanan']		= rand(0,10000);
@@ -206,6 +250,38 @@ class Order extends CI_Controller {
 		$this->cart->destroy();
 		redirect(site_url('/blog/home'));
 
+	}
+
+	public function ambil_kota()
+	{
+		$curl = curl_init();
+		 
+		curl_setopt_array($curl, array(
+		 CURLOPT_URL => "http://rajaongkir.com/api/starter/city",
+		 CURLOPT_RETURNTRANSFER => true,
+		 CURLOPT_ENCODING => "",
+		 CURLOPT_MAXREDIRS => 10,
+		 CURLOPT_TIMEOUT => 30,
+		 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		 CURLOPT_CUSTOMREQUEST => "GET",
+		 CURLOPT_HTTPHEADER => array(
+		 "key: 2f50e6a7c051609f97d7bf9174188064"
+		 ),
+		));
+		 
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		 
+		curl_close($curl);
+		 
+		if ($err) {
+		 echo "cURL Error #:" . $err;
+		} else {
+		 
+		 $k = json_decode($response, true);
+		 echo json_encode($k['rajaongkir']['results']);
+		 
+		}
 	}
 
 }

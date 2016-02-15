@@ -52,16 +52,37 @@ div#list-produk:not(:last-child){
 				   <span style="float:right;"><?='Rp '.number_format($subtotal,0,'','.').br(1);?></span></p>
 
 				   <?=br(1);?><p>Biaya Pengiriman
-				   <span style="float:right;"?>0</span></p>
+				   <span style="float:right;"?><?='Rp '.number_format($order->row()->biaya_kirim,0,'','.').br(1);?></span></p>
 
 				   <?=br(1);?><p>Total
-				   <span style="float:right;"?><?='Rp '.number_format($subtotal,0,'','.');?></span></p>
+				   <span style="float:right;"?><?='Rp '.number_format($subtotal+$order->row()->biaya_kirim,0,'','.');?></span></p>
 				</div>
 			</div>
 
 			   <?=br(3);?><p class="text-center text-uppercase"><font color="#727272">Informasi Pengiriman</font><hr></p>
-			   <b>Nama Penerima</b> <?=br(1).$order->row()->nm_penerima.br(2);?>
-			   <b>Alamat Penerima</b> <?=br(1).$order->row()->alamat;?>
+			   <b>Nama Penerima</b> 
+			   <?=br(1).$order->row()->nm_penerima.br(2);?>
+
+			   <b>Alamat Penerima</b> 
+			   <?=br(1).$order->row()->alamat.br(1).$order->row()->kota.br(2);?>
+
+			   <b>Telephone</b>
+			   <?=br(1).$order->row()->no_telp.br(2);?>
+
+			   <b>Tanggal</b>
+			   <?=br(1).generate_tanggal(gmdate('d/m/Y-H:i',$order->row()->tgl_beli)).br(3);?>
+
+			   <p class="text-center text-uppercase"><font color="#727272">Jasa Pengiriman</font><hr></p>
+			   <b>Kurir</b>
+			   <p class="text-uppercase"><?=$order->row()->kurir.br(1);?></p>
+				<b>Layanan</b>
+				<p><?=$order->row()->layanan.br(2);?></p>
+
+			   <?php if($order->row()->catatan != NULL):?>
+			   <p class="text-center text-uppercase"><font color="#727272">Catatan</font><hr></p>
+			   <?=$order->row()->catatan;?>
+			   <?php endif;?>
+			   
 			   <?=br(5);?>
 
 		</div><!-- END CONTENT -->

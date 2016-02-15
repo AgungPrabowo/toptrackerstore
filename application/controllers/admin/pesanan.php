@@ -38,7 +38,6 @@ class Pesanan extends CI_Controller {
 			//untuk pengambilan data dalam group/kelompok id_pesanan
 			$isi['data_tertunda']	= $this->db->where('status','Tertunda')
 											   ->where('id_admin',$id)
-											   ->order_by('id_order','DESC')
 											   ->group_by('id_pesanan')
 									   	       ->get('pesanan');
 			$isi['data_terkirim']	= $this->db->where('status','Terkirim')
@@ -70,7 +69,6 @@ class Pesanan extends CI_Controller {
 		$this->model_security->getsecurity_client($query);
 		$key 							= $this->model_customer->getdata_uri($query);
 		$data_pesanan					= $this->model_order->getdata_order($id_pesanan);
-		$data['key']					= $key->kode_sales;
 		$data['order']					= $data_pesanan;
 		$data['provinsi']				= $this->model_wilayah->getdata_prov_row($data_pesanan->row()->id_provinsi);
 		$data['kota']					= $this->model_wilayah->getdata_kota_row($data_pesanan->row()->id_kota);
