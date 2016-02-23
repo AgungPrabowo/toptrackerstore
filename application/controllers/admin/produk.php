@@ -34,6 +34,9 @@ class Produk extends CI_Controller {
 	{
 		$this->load->model('model_produk');
 		$this->model_security->getsecurity();
+		$query					= $this->session->userdata('username');
+		$level 					= $this->model_user->getdata_level($query);
+		$isi['level']			= $level;
 		$isi['content']			= 'admin/produk/form_editproduk';
 		$isi['judul']			= 'Produk';
 		$isi['sub_judul']		= 'Edit Produk';

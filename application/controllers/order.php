@@ -7,12 +7,9 @@ class Order extends CI_Controller {
 	{
 		$query					= $this->model_customer->getdata($key);
 		$key   					= $this->session->userdata('email');
+		$data['berat']			= $this->cart->total_items();
 		$data['kode_sales']		= $this->model_customer->getdata_uri($key);
 		$data['key']			= $data['kode_sales']->kode_sales;
-		// $data['provinsi'] 		= $this->model_wilayah->getdata_prov_row($query->id_provinsi);
-		// $data['kota'] 			= $this->model_wilayah->getdata_kota_row($query->id_kota);
-		// $data['kecamatan'] 		= $this->model_wilayah->getdata_kec_row($query->id_kecamatan);
-		// $data['id_provinsi']	= $this->db->get('provinces');
 		$data['nm_penerima']	= $query->nm_penerima;
 		$data['no_telp']		= $query->no_telp;
 		$data['alamat']			= $query->alamat;
@@ -25,7 +22,7 @@ class Order extends CI_Controller {
 		$this->load->view('user/konfirmasi_order', $data);
 	}
 
-	public function result_ongkir($origin,$destination,$courier)
+	public function result_ongkir($origin,$destination,$courier,$key='cek_ongkir',$weight)
 	{
 		$curl = curl_init();
 
@@ -36,9 +33,7 @@ class Order extends CI_Controller {
 		 CURLOPT_MAXREDIRS => 10,
 		 CURLOPT_TIMEOUT => 30,
 		 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		 // CURLOPT_CUSTOMREQUEST => "POST",
-		 CURLOPT_POSTFIELDS => "origin=$origin&destination=$destination&weight=1000&courier=$courier",
-		 // CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
+		 CURLOPT_POSTFIELDS => "origin=$origin&destination=$destination&weight=$weight&courier=$courier",
 		 CURLOPT_HTTPHEADER => array(
 		 "key: 2f50e6a7c051609f97d7bf9174188064"
 		 ),
@@ -53,32 +48,18 @@ class Order extends CI_Controller {
 		 echo "cURL Error #:" . $err;
 		} else {
 		 
-		 $hasil['data'] = json_decode($response, true);
+		 $hasil['data'] 	= json_decode($response, true);
+		 $hasil['weight']	= $weight/1000;
 		}
 
-		$this->load->view('user/result_ongkir',$hasil);
-	}
-
-	public function getkota($key)
-	{
-		$city	= $this->model_wilayah->getdata_kota($key);
-
-		echo "<option value='0'>---Pilih Kota---</option>";
-		foreach($city->result() as $kota):
-			echo "<option value=".$kota->id.">".$kota->name."</option>";
-		endforeach;
-
-	}
-
-	public function getkec($key)
-	{
-		$kecamatan	= $this->model_wilayah->getdata_kec($key);
-
-		echo "<option value='0'>---Pilih Kecamatan---</option>";
-		foreach($kecamatan->result() as $kec):
-			echo "<option value=".$kec->id.">".$kec->name."</option>";
-		endforeach;
-
+		if($key == 'cek_ongkir')
+		{
+			$this->load->view('hasil_ongkir',$hasil);	
+		}
+		else
+		{
+			$this->load->view('user/result_ongkir',$hasil);
+		}
 	}
 
 	public function add_to_cart($key)

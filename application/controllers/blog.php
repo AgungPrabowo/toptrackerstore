@@ -181,6 +181,10 @@ class Blog extends CI_Controller {
 		redirect(site_url());
 	}
 
+	public function cek_ongkir()
+	{
+		$this->load->view('cek_ongkir');
+	}
 
 }
 

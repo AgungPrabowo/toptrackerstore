@@ -33,6 +33,9 @@ class Kategori extends CI_Controller {
 	public function edit()
 	{
 		$this->model_security->getsecurity();
+		$query				= $this->session->userdata('username');
+		$level 				= $this->model_user->getdata_level($query);
+		$isi['level']		= $level;
 		$isi['content']		= 'admin/kategori/form_editkategori';
 		$isi['judul']		= 'Kategori';
 		$isi['tipe']		= 'edit';

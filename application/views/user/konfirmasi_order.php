@@ -9,114 +9,60 @@
 <script type="text/javascript" src="<?=base_url('assets/js/jquery-easyui-1.4.4/jquery.easyui.min.js');?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/jquery-easyui-1.4.4/jquery.easyui.mobile.js');?>"></script>
 <script type="text/javascript">
-// $(document).ready(function(){
-
-// //ambil id/nilai PROVINSI dan kirim ke function getkota jika sukses ambil data getkota letakan di #kota dan #kota1
-//   $("#provinsi").change(function(){
-//     var key  = $("#provinsi").val();
-//     var url = '<?=site_url();?>/order/getkota/'+key;
-
-
-//     $.ajax({
-//       type    : 'POST',
-//       url     : '<?=site_url();?>/order/getkota/'+key,
-//       success : function(){
-//         $.get(url).done(function(data){
-//           $("#kota").html(data);
-//             });
-//       }
-//     });
-//   });
-
-// //ambil id/nilai KOTA dan kirim ke function getkec jika sukses ambil data getkec dan letakan di #kecamatan
-//   $("#kota").change(function(){
-//     var key = $("#kota").val();
-//     var url = '<?=site_url();?>/order/getkec/'+key;
-
-
-//     $.ajax({
-//       type    : 'POST',
-//       url     : '<?=site_url();?>/order/getkec/'+key,
-//       success : function(){
-//         $.get(url).done(function(data){
-//           $("#kecamatan").html(data);
-//         });
-//       }
-//     });
-//   });
-  
-// });
- // $(function(){
- // $('#cekOngkir').click(function(){
- // $('form').submit();
- // })
- // })
-
-// $(document).ready(function(){
-//   var origin1     = $('#origin').val();
-//   var destination1= $('#destination').val();
-//   var courier1    = $('#courier').val();
-
-//   $('#courier').change(function(){
-//     $.ajax({
-//       type: 'POST',
-//       url: '<?=site_url();?>/order/result_ongkir',
-//       data:{
-//         origin : origin1,
-//         destination : destination1,
-//         courier : courier1
-//       },
-//       success : function(){
-//         $.get('<?=site_url();?>/order/result_ongkir',function(data){
-//           $('#result').html(data);
-//         });
-//       }
-//     });
-//   });
-// });
-
 $(document).ready(function(){
+
+  $('#destination').combobox({
+    onSelect : function(){
+    var origin      = $('#origin').val();
+    var destination = $('#destination').combobox('getValue');
+    var destination1= $('#destination').combobox('getText');
+    var weight      = $('#berat').val();
+    var key         = 'konfirmasi order';
+    var courier     = $('#courier').val();
+      if(courier != 0)
+      {
+        $('#destination1').attr('value',destination1);
+
+          // ambil biaya ongkir
+          $.get('<?=site_url();?>/order/result_ongkir/'+origin+'/'+destination+'/'+courier+'/'+key+'/'+weight,function(data){
+            $('#result').html(data);
+        });
+      }
+      else
+      {
+        return false;
+      }
+    }
+  });
 
    $('#simpan').click(function(){
     $('form').submit();
    });
 
+
   $('#courier').change(function(){
   var origin      = $('#origin').val();
   var destination = $('#destination').combobox('getValue');
   var destination1= $('#destination').combobox('getText');
-  var courier    = $('#courier').val();
+  var courier     = $('#courier').val();
+  var weight      = $('#berat').val();
+  var key         = 'konfirmasi order';
+  if(destination == 0)
+  {
+    return false;
+  }
+  else
+  {
+    //ambil nilai #destination
+    $('#destination1').attr('value',destination1);
 
-  //ambil nilai #destination
-  $('#destination1').attr('value',destination1);
-
-    // ambil biaya ongkir
-    $.get('<?=site_url();?>/order/result_ongkir/'+origin+'/'+destination+'/'+courier,function(data){
-      $('#result').html(data);
-    });
+      // ambil biaya ongkir
+      $.get('<?=site_url();?>/order/result_ongkir/'+origin+'/'+destination+'/'+courier+'/'+key+'/'+weight,function(data){
+        $('#result').html(data);
+      });
+    }
   });
-
-  // $('#destination').on(function(){
-  // var origin1     = $('#origin').val();
-  // var destination1= $('#destination').combobox('getValue');
-  // var courier1    = $('#courier').val();
-
-  // if(courier1 == null)
-  // {
-  //   return false;
-  // }
-  // else
-  // {
-
-  //   $.get('<?=site_url();?>/order/result_ongkir/'+origin1+'/'+destination1+'/'+courier1,function(data){
-  //     $('#result').html(data);
-  //   });
-
-  // }
-  // });
-
 });
-
 </script>
 <br><br><br>        
 <!-- form alamat pengiriman -->
@@ -132,6 +78,7 @@ $(document).ready(function(){
             <input type="hidden" name="id_admin" value ="<?=$id_admin;?>">
             <input type="hidden" name="origin" id="origin" value="399">
             <input type="hidden" name="destination" id="destination1">
+            <input type="hidden" id="berat" value="<?=$berat;?>000">
             <input type="text" class="form-control" name="nm_penerima" id="nm_penerima" value="<?=$nm_penerima;?>" required>
           </div>
         </div>
@@ -184,7 +131,7 @@ $(document).ready(function(){
       <div id="result"></div>
 
       <div class="form-group">
-        <label class="control-label">Catatan : Bug pada kota, kurir dan berat</label>
+        <label class="control-label">Catatan</label>
         <textarea name="catatan" class="form-control"></textarea>
       </div>
 

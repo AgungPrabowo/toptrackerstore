@@ -13,8 +13,9 @@
     </div>
 
     <div class="col-xs-<?=$val;?> col-sm-<?=$val;?>">
-       <a href="<?=site_url('/blog/category');?>" class="navbar-brand" id="menu"><p class="text-center"><i class="glyphicon glyphicon-menu-hamburger"></i></p></a>
+       <a href="<?=site_url('/blog/cek_ongkir');?>" class="navbar-brand" id="menu" id="menu"><i class="glyphicon glyphicon-check"></i></a>
     </div>
+
     <?php if($username):?>
     <div class="col-xs-<?=$val;?> col-sm-<?=$val;?>">
        <a href="<?=site_url('/user/profile/'.$key);?>" class="navbar-brand" id="menu"><p class="text-right"><i class="glyphicon glyphicon-user"></i></p></a>
